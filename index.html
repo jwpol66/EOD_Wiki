@@ -6,26 +6,32 @@
   
   <style>
     :root {
-      /* 1. 사이드바 전체 가로 폭 조절 (기본 300px -> 230px로 축소) */
-      --sidebar-width: 200px;
+      /* 사이드바 가로 폭을 좁게 유지 (230px) */
+      --sidebar-width: 230px;
     }
 
-    /* 2. 사이드바 메뉴 글자 크기 키우기 */
-    .sidebar-nav {
-      font-size: 20px; /* 글자 크기 (기본보다 크게) */
-      font-weight: 500;
+    /* 1. 상위 카테고리 (화공품 정보, SOP 등) 글자 크기 */
+    .sidebar-nav strong {
+      font-size: 40px;   /* 상위 카테고리 크기 */
+      color: #333;       /* 글자색을 진하게 */
+      display: block;
+      margin-top: 20px;  /* 카테고리 간의 위쪽 간격 */
+      margin-bottom: 10px;
     }
 
-    /* 3. 사이드바 항목 간의 간격 넓히기 (터치하기 쉽게) */
-    .sidebar-nav ul li {
-      margin: 10px 0;
+    /* 2. 하위 메뉴 (전기식 뇌관, 대피 거리 등) 글자 크기 */
+    .sidebar-nav a {
+      font-size: 30px !important; /* 하위 메뉴 크기 */
+      font-weight: normal;
+      line-height: 1.5;
+      padding: 8px 0;    /* 터치하기 좋게 상하 간격 추가 */
     }
 
-    /* 4. 모바일 전용 추가 수정 (선택사항) */
-    @media screen and (max-width: 768px) {
-      .sidebar {
-        width: 230px; /* 모바일에서도 폭 유지 */
-      }
+    /* 3. 현재 선택된 메뉴 강조 */
+    .sidebar-nav li.active > a {
+      font-weight: bold;
+      color: #42b983;    /* 강조 색상 (초록색) */
+      border-right: 3px solid #42b983;
     }
   </style>
   </head>
