@@ -6,11 +6,11 @@
   
   <style>
     :root {
-      /* 사이드바 폭 (정원님이 설정하신 200px 유지) */
+      /* 1. 사이드바 폭 고정 */
       --sidebar-width: 200px;
     }
 
-    /* 1. 사이드바 제목 (EOD 지식창고) - 짙은 파란색 */
+    /* 2. 사이드바 제목 (EOD 지식창고) - 파란색 */
     .sidebar .app-name a {
       font-size: 35px !important;
       color: #0056b3 !important;
@@ -18,7 +18,7 @@
       text-decoration: none !important;
     }
 
-    /* 2. 상위 카테고리 (화공품 정보 등) - 진한 녹색 */
+    /* 3. 상위 카테고리 (화공품 정보 등) - 초록색 */
     .sidebar-nav strong {
       font-size: 25px !important;
       color: #28a745 !important;
@@ -26,31 +26,37 @@
       margin-top: 25px !important;
     }
 
-    /* 3. 하위 메뉴 (전기식 뇌관 등) - 진한 회색 */
+    /* 4. 하위 메뉴 (전기식 뇌관 등) - 회색 */
     .sidebar-nav ul li a {
       font-size: 20px !important;
       color: #444 !important;
       padding: 10px 0 !important;
     }
 
-    /* 4. ★ 마우스 호버 효과 (주황/빨강) ★ - 정원님의 핵심 디자인! */
+    /* 5. 마우스 호버 효과 - 빨강/주황 (정원님 코드 완벽 복구!) */
     .sidebar-nav a:hover {
       color: #ff5722 !important;
       text-decoration: underline !important;
     }
 
-    /* 5. ★ 본문 가려짐 해결 (섹션을 옆으로 밀어냄) ★ */
-    section.content {
-      /* 사이드바 뒤가 아니라 사이드바가 끝나는 지점부터 본문 시작 */
-      left: var(--sidebar-width) !important;
-      position: absolute !important;
+    /* 6. ★ 본문 가려짐 문제 해결 ★ */
+    /* 사이드바 자체 폭 강제 지정 */
+    .sidebar {
+      width: var(--sidebar-width) !important;
     }
 
-    /* 6. 본문과 사이드바 사이의 간격 (한두 칸 정도) */
+    /* 본문 영역을 사이드바 바로 옆으로 정렬 */
+    .content {
+      left: var(--sidebar-width) !important;
+      position: absolute !important;
+      right: 0 !important;
+    }
+
+    /* 7. 본문과 사이드바 사이의 '한두 칸' 간격 */
     .markdown-section {
+      max-width: 90% !important;
       margin: 0 !important;
-      max-width: 95% !important;
-      /* 사이드바와 글자 사이의 여백을 40px 정도로 주어 가독성 확보 */
+      /* 이 값을 조절해서 사이드바와의 거리를 맞춥니다. 40px이 딱 한두 칸 정도입니다. */
       padding-left: 40px !important;
     }
   </style>
