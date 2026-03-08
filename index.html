@@ -6,60 +6,68 @@
   <style>
     :root { --sidebar-width: 250px; }
 
-    /* [1. 디자인 테마 - 정원님 스타일 100% 유지] */
-    .sidebar .app-name a { font-size: 30px !important; color: #0056b3 !important; font-weight: 800 !important; text-decoration: none !important; }
-    .sidebar-nav strong { font-size: 22px !important; color: #28a745 !important; display: block !important; margin-top: 20px !important; }
-    .sidebar-nav ul li a { font-size: 19px !important; color: #444 !important; }
-    .sidebar-nav a:hover { color: #ff5722 !important; text-decoration: underline !important; }
+    /* [1. 공통 디자인 - 정원님 전용 테마] */
+    .sidebar .app-name a { 
+      font-size: 30px !important; color: #0056b3 !important; 
+      font-weight: 800 !important; text-decoration: none !important; 
+    }
+    .sidebar-nav strong { 
+      font-size: 22px !important; color: #28a745 !important; 
+      display: block !important; margin-top: 20px !important; 
+    }
+    .sidebar-nav ul li a { 
+      font-size: 19px !important; color: #444 !important; 
+    }
+    /* ★ 빨간색/주황색 호버 효과 (절대 생략 안 함!) ★ */
+    .sidebar-nav a:hover { 
+      color: #ff5722 !important; text-decoration: underline !important; 
+    }
 
-    /* [2. 본문 왕글씨 유지 (28px)] */
+    /* [2. 본문 왕글씨 설정 (28px)] */
     .markdown-section {
       font-size: 28px !important; line-height: 1.6 !important; color: #222 !important;
-      padding: 40px 20px !important;
+      padding: 40px 25px !important;
     }
-    .markdown-section h1 { font-size: 40px !important; }
 
-    /* [3. ★ 휴대폰 전용: 하단 삼선 & 바텀-업 메뉴 ★] */
+    /* [3. PC 모드 (화면이 넓을 때)] */
+    @media screen and (min-width: 769px) {
+      /* PC에서는 Docsify 기본 토글 기능을 사용해 본문이 넓게 펼쳐집니다 */
+      .content { transition: left 0.25s ease; }
+    }
+
+    /* [4. ★ 휴대폰 전용: 바텀-업 슬라이드 & 하단 대왕 버튼 ★] */
     @media screen and (max-width: 768px) {
-      /* 왼쪽 하단 '대왕' 삼선 버튼 */
+      /* 본문 영역 전체 확장 */
+      .content { left: 0 !important; width: 100% !important; transition: opacity 0.3s !important; }
+
+      /* 왼쪽 하단 대왕 삼선 버튼 (장갑 낀 상태에서도 터치 가능) */
       .sidebar-toggle {
         width: 80px !important; height: 80px !important;
-        background: #28a745 !important; /* 초록색 버튼 */
-        left: 20px !important; bottom: 20px !important; top: auto !important; /* 하단 배치 */
+        background: #28a745 !important;
+        left: 20px !important; bottom: 20px !important; top: auto !important;
         display: flex !important; align-items: center; justify-content: center;
-        border-radius: 50%; z-index: 1000 !important;
+        border-radius: 50% !important; z-index: 1000 !important;
         box-shadow: 0 4px 15px rgba(0,0,0,0.3) !important;
       }
       .sidebar-toggle span { width: 40px !important; height: 4px !important; background: white !important; margin: 4px 0 !important; }
 
       /* 사이드바: 아래에서 위로 올라오는 서랍장 방식 */
       .sidebar {
-        width: 100% !important; height: 70vh !important; /* 화면 70% 차지 */
+        width: 100% !important; height: 75vh !important;
         left: 0 !important; bottom: 0 !important; top: auto !important;
         background: white !important;
-        border-top: 3px solid #28a745;
-        border-radius: 20px 20px 0 0;
+        border-top: 5px solid #28a745;
+        border-radius: 30px 30px 0 0;
         transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1) !important;
         z-index: 999 !important;
       }
-      
-      /* 메뉴 닫힘: 아래로 완전히 숨김 */
+
+      /* 메뉴 닫힘(숨김) */
       body.close .sidebar { transform: translateY(100%) !important; }
-      /* 메뉴 열림: 위로 슥 올라옴 */
+      /* 메뉴 열림(올라옴) */
       body:not(.close) .sidebar { transform: translateY(0) !important; }
-
-      /* 본문 영역: 메뉴가 열려도 가려지지 않게 처리 */
-      .content {
-        left: 0 !important; position: relative !important;
-        transition: opacity 0.3s !important;
-      }
-      /* 메뉴가 열리면 본문 배경을 흐리게 */
-      body:not(.close) .content { opacity: 0.3; }
-    }
-
-    /* PC 모드: 기존 왼쪽 사이드바 유지 */
-    @media screen and (min-width: 769px) {
-      .content { left: var(--sidebar-width) !important; }
+      /* 메뉴 열렸을 때 본문 흐리게 */
+      body:not(.close) .content { opacity: 0.2; }
     }
   </style>
 </head>
@@ -70,9 +78,7 @@
       name: 'EOD 지식창고',
       loadSidebar: true,
       subMaxLevel: 2,
-      auto2top: true,
-      // 메뉴 클릭 시 자동으로 사이드바를 닫아주는 기능
-      alias: { '/.*/_sidebar.md': '/_sidebar.md' }
+      auto2top: true
     }
   </script>
   <script src="//cdn.jsdelivr.net/npm/docsify/lib/docsify.min.js"></script>
