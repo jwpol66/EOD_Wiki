@@ -6,22 +6,11 @@
   <style>
     :root { --sidebar-width: 250px; }
 
-    /* [1. 공통 디자인 - 정원님 전용 테마] */
-    .sidebar .app-name a { 
-      font-size: 30px !important; color: #0056b3 !important; 
-      font-weight: 800 !important; text-decoration: none !important; 
-    }
-    .sidebar-nav strong { 
-      font-size: 22px !important; color: #28a745 !important; 
-      display: block !important; margin-top: 20px !important; 
-    }
-    .sidebar-nav ul li a { 
-      font-size: 19px !important; color: #444 !important; 
-    }
-    /* ★ 빨간색/주황색 호버 효과 (절대 생략 안 함!) ★ */
-    .sidebar-nav a:hover { 
-      color: #ff5722 !important; text-decoration: underline !important; 
-    }
+    /* [1. 공통 디자인 - 정원님 전용 테마 유지] */
+    .sidebar .app-name a { font-size: 30px !important; color: #0056b3 !important; font-weight: 800 !important; text-decoration: none !important; }
+    .sidebar-nav strong { font-size: 22px !important; color: #28a745 !important; display: block !important; margin-top: 20px !important; }
+    .sidebar-nav ul li a { font-size: 19px !important; color: #444 !important; }
+    .sidebar-nav a:hover { color: #ff5722 !important; text-decoration: underline !important; }
 
     /* [2. 본문 왕글씨 설정 (28px)] */
     .markdown-section {
@@ -29,18 +18,28 @@
       padding: 40px 25px !important;
     }
 
-    /* [3. PC 모드 (화면이 넓을 때)] */
+    /* [3. ★ PC 모드 설정 (사이드바 위치 고정) ★] */
     @media screen and (min-width: 769px) {
-      /* PC에서는 Docsify 기본 토글 기능을 사용해 본문이 넓게 펼쳐집니다 */
-      .content { transition: left 0.25s ease; }
+      .sidebar {
+        left: 0 !important;
+        width: var(--sidebar-width) !important;
+        position: fixed !important;
+      }
+      .content {
+        left: var(--sidebar-width) !important;
+        position: absolute !important;
+        transition: left 0.25s ease;
+      }
+      /* PC에서 메뉴 닫았을 때 처리 */
+      body.close .sidebar { transform: translateX(calc(-1 * var(--sidebar-width))) !important; }
+      body.close .content { left: 0 !important; }
     }
 
-    /* [4. ★ 휴대폰 전용: 바텀-업 슬라이드 & 하단 대왕 버튼 ★] */
+    /* [4. ★ 휴대폰 모드: 바텀-업 슬라이드 & 하단 대왕 버튼 ★] */
     @media screen and (max-width: 768px) {
-      /* 본문 영역 전체 확장 */
       .content { left: 0 !important; width: 100% !important; transition: opacity 0.3s !important; }
 
-      /* 왼쪽 하단 대왕 삼선 버튼 (장갑 낀 상태에서도 터치 가능) */
+      /* 왼쪽 하단 대왕 삼선 버튼 */
       .sidebar-toggle {
         width: 80px !important; height: 80px !important;
         background: #28a745 !important;
@@ -51,7 +50,7 @@
       }
       .sidebar-toggle span { width: 40px !important; height: 4px !important; background: white !important; margin: 4px 0 !important; }
 
-      /* 사이드바: 아래에서 위로 올라오는 서랍장 방식 */
+      /* 사이드바: 아래에서 위로 올라오는 방식 */
       .sidebar {
         width: 100% !important; height: 75vh !important;
         left: 0 !important; bottom: 0 !important; top: auto !important;
@@ -66,7 +65,6 @@
       body.close .sidebar { transform: translateY(100%) !important; }
       /* 메뉴 열림(올라옴) */
       body:not(.close) .sidebar { transform: translateY(0) !important; }
-      /* 메뉴 열렸을 때 본문 흐리게 */
       body:not(.close) .content { opacity: 0.2; }
     }
   </style>
@@ -78,7 +76,11 @@
       name: 'EOD 지식창고',
       loadSidebar: true,
       subMaxLevel: 2,
-      auto2top: true
+      auto2top: true,
+      /* ★ 깃허브 페이지 하위 폴더 경로 문제 해결 ★ */
+      alias: {
+        '/.*/_sidebar.md': '/_sidebar.md'
+      }
     }
   </script>
   <script src="//cdn.jsdelivr.net/npm/docsify/lib/docsify.min.js"></script>
