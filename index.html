@@ -7,43 +7,54 @@
   <style>
     :root { 
       --sidebar-width-pc: 250px; 
-      --sidebar-width-mobile: 130px; /* ★모바일 폭을 130px로 확 줄임★ */
+      --sidebar-width-mobile: 110px; /* ★모바일 폭을 110px까지 극한으로 축소★ */
     }
 
-    /* [1. 사이드바 타이틀 크기 조정 (슬림한 폭을 위해)] */
+    /* [1. 사이드바 타이틀 줄바꿈 및 크기 조정] */
     .sidebar .app-name a { 
-      font-size: 20px !important; /* 폭에 맞춰 글씨 크기를 줄임 */
+      font-size: 19px !important; 
+      line-height: 1.2 !important;
+      display: block !important;
       color: #0056b3 !important; 
       font-weight: 800 !important; 
-      text-decoration: none !important; 
     }
-    .sidebar-nav strong { font-size: 16px !important; color: #28a745 !important; display: block; margin-top: 15px !important; }
-    .sidebar-nav ul li a { font-size: 15px !important; color: #444 !important; }
 
-    /* [2. ★본문 우주급 가독성 복구 (2.4배)★] */
+    /* [2. ★들여쓰기 완전 제거 (왼쪽 정렬)★] */
+    .sidebar-nav ul { 
+      padding-left: 0 !important; 
+      margin-left: 0 !important; 
+      list-style: none !important;
+    }
+    .sidebar-nav li { 
+      margin-left: 0 !important; 
+      padding-left: 0 !important; 
+    }
+    .sidebar-nav a { 
+      padding-left: 5px !important; /* 최소한의 여백만 부여 */
+      font-size: 16px !important; 
+      white-space: normal !important; /* 글자가 길면 자동 줄바꿈 */
+      word-break: keep-all !important;
+    }
+    .sidebar-nav strong { 
+      font-size: 17px !important; 
+      color: #28a745 !important; 
+      padding-left: 5px !important;
+      margin-top: 15px !important; 
+      display: block; 
+    }
+
+    /* [3. 본문 우주급 가독성 유지] */
     .markdown-section {
       font-size: 28px !important; 
-      line-height: 2.4 !important; /* 문장 사이를 다시 아주 시원하게 벌림 */
+      line-height: 2.4 !important;
       color: #222 !important;
       padding: 30px 20px !important;
     }
     .markdown-section p, .markdown-section li { margin-bottom: 40px !important; }
 
-    /* [3. PC와 모바일 통합 레이아웃] */
-    .sidebar {
-      position: fixed !important;
-      top: 0 !important;
-      height: 100vh !important;
-      background: white !important;
-      transition: transform 0.3s ease !important;
-      z-index: 1000 !important;
-    }
-    .content {
-      position: absolute !important;
-      top: 0 !important;
-      right: 0 !important;
-      transition: all 0.3s ease !important;
-    }
+    /* [4. 레이아웃 제어 (자석 효과)] */
+    .sidebar { position: fixed !important; top: 0 !important; height: 100vh !important; background: white !important; transition: transform 0.3s ease !important; z-index: 1000 !important; }
+    .content { position: absolute !important; top: 0 !important; right: 0 !important; transition: all 0.3s ease !important; }
 
     /* PC 설정 */
     @media screen and (min-width: 769px) {
@@ -53,34 +64,27 @@
       body.close .content { left: 0 !important; width: 100% !important; }
     }
 
-    /* ★모바일 설정 (슬림 자석 레이아웃)★ */
+    /* 모바일 설정 (초슬림 모드) */
     @media screen and (max-width: 768px) {
-      .sidebar { width: var(--sidebar-width-mobile) !important; left: 0 !important; }
+      .sidebar { width: var(--sidebar-width-mobile) !important; left: 0 !important; border-right: 1px solid #eee; }
       
-      /* 메뉴 열림: 본문이 130px 옆에 딱 붙음 */
       body:not(.close) .content { 
         left: var(--sidebar-width-mobile) !important; 
         width: calc(100% - var(--sidebar-width-mobile)) !important; 
         transform: none !important; 
       }
       
-      /* 메뉴 닫힘: 본문이 0지점 복귀 & 100% 확장 */
-      body.close .sidebar { transform: translateX(-130px) !important; }
-      body.close .content { 
-        left: 0 !important; 
-        width: 100% !important; 
-        transform: none !important; 
-      }
+      body.close .sidebar { transform: translateX(-110px) !important; }
+      body.close .content { left: 0 !important; width: 100% !important; transform: none !important; }
 
-      /* 적당한 크기의 초록색 삼선 버튼 (75px) */
       .sidebar-toggle {
-        width: 75px !important; height: 75px !important;
+        width: 70px !important; height: 70px !important;
         background: #28a745 !important;
         left: 15px !important; bottom: 25px !important; top: auto !important;
         display: flex !important; align-items: center; justify-content: center;
         border-radius: 50% !important; z-index: 1001 !important;
       }
-      .sidebar-toggle span { width: 35px !important; height: 4px !important; background: white !important; margin: 4px 0 !important; display: block; }
+      .sidebar-toggle span { width: 30px !important; height: 4px !important; background: white !important; margin: 4px 0 !important; display: block; }
       .sidebar-overlay { display: none !important; }
     }
   </style>
@@ -89,7 +93,7 @@
   <div id="app">로딩 중...</div>
   <script>
     window.$docsify = {
-      name: 'EOD 지식창고',
+      name: 'EOD<br>지식창고', // ★엔터(줄바꿈) 적용★
       loadSidebar: true,
       subMaxLevel: 2,
       auto2top: true,
