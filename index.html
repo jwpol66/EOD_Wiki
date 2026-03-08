@@ -56,7 +56,7 @@
     /* [화면 가로 흔들림 완벽 차단] */
     body, html { overflow-x: hidden !important; } 
 
-    /* ★★★ 핵심 원인 해결: vue.css의 300px 우측 밀림 강제 속성을 우선순위로 완벽히 덮어쓰기 ★★★ */
+    /* ★ Docsify 기본 내장 스크립트(vue.css)의 본문 밀림 강제 속성 덮어쓰기 ★ */
     body main,
     body.close main,
     body:not(.close) main {
@@ -85,7 +85,7 @@
     }
 
     @media screen and (min-width: 769px) {
-      .sidebar { width: var(--sidebar-width-pc) !important; left: 0 !important; }
+      .sidebar { width: var(--sidebar-width-pc) !important; left: 0 !important; transform: none !important; }
       body:not(.close) .content { left: var(--sidebar-width-pc) !important; width: calc(100% - var(--sidebar-width-pc)) !important; }
       body.close .sidebar { transform: translateX(-250px) !important; }
       body.close .content { left: 0 !important; width: 100% !important; }
@@ -94,14 +94,19 @@
     @media screen and (max-width: 768px) {
       .sidebar { width: var(--sidebar-width-mobile) !important; left: 0 !important; }
       
-      /* 모바일에서 메뉴 열 때: 본문이 110px 옆으로 밀려남 (원하시던 동작) */
+      /* ★ 여기가 빠져서 문제였습니다! 열렸을 때 우측으로 300px 날아가는 기본 속성 완벽 차단 ★ */
+      body:not(.close) .sidebar { 
+        transform: none !important; 
+      }
+      
+      /* 모바일에서 메뉴 열 때: 본문이 110px 옆으로 밀려남 */
       body:not(.close) .content { 
         left: var(--sidebar-width-mobile) !important; 
         width: calc(100% - var(--sidebar-width-mobile)) !important; 
         transform: none !important; 
       }
       
-      /* 모바일에서 메뉴 닫을 때 */
+      /* 모바일에서 메뉴 닫을 때: 사이드바 숨김, 본문 원상복구 */
       body.close .sidebar { transform: translateX(-110px) !important; }
       body.close .content { left: 0 !important; width: 100% !important; transform: none !important; }
       
