@@ -6,41 +6,36 @@
   
   <style>
     :root {
-      /* 사이드바 가로 폭을 좁게 유지 (230px) */
-      --sidebar-width: 230px;
+      --sidebar-width: 250px;
     }
 
-    /* 1. 상위 카테고리 (화공품 정보, SOP 등) 글자 크기 */
+    /* 1. 사이드바 제목 (EOD 지식창고) - 짙은 파란색으로 */
+    .sidebar .app-name a {
+      font-size: 35px !important;
+      color: #0056b3 !important; /* 확실한 파란색 */
+      font-weight: 800 !important;
+      text-decoration: none;
+    }
+
+    /* 2. 상위 카테고리 (화공품 정보 등) - 진한 녹색으로 */
     .sidebar-nav strong {
-      font-size: 40px;   /* 상위 카테고리 크기 */
-      color: #333;       /* 글자색을 진하게 */
+      font-size: 25px !important;
+      color: #28a745 !important; /* 확실한 녹색 */
       display: block;
-      margin-top: 20px;  /* 카테고리 간의 위쪽 간격 */
-      margin-bottom: 10px;
+      margin-top: 25px;
     }
 
-    /* 2. 하위 메뉴 (전기식 뇌관, 대피 거리 등) 글자 크기 */
-    .sidebar-nav a {
-      font-size: 30px !important; /* 하위 메뉴 크기 */
-      font-weight: normal;
-      line-height: 1.5;
-      padding: 8px 0;    /* 터치하기 좋게 상하 간격 추가 */
+    /* 3. 하위 메뉴 (전기식 뇌관 등) - 진한 회색 */
+    .sidebar-nav ul li a {
+      font-size: 20px !important;
+      color: #444 !important;
+      padding: 10px 0 !important;
     }
 
-    /* 3. 현재 선택된 메뉴 강조 */
-    .sidebar-nav li.active > a {
-      font-weight: bold;
-      color: #42b983;    /* 강조 색상 (초록색) */
-      border-right: 3px solid #42b983;
-    }
-
-    /* 4. ★ 추가: 사이드바 최상단 제목 (EOD 지식창고) ★ */
-    .sidebar .app-name {
-      font-size: 40px;      /* 제목 크기를 크게 확대 */
-      font-weight: 800;    /* 아주 굵게 설정 */
-      color: #2c3e50;      /* 신뢰감을 주는 짙은 색상 */
-      margin: 20px 0;      /* 상하 여백 추가 */
-      text-align: center;  /* 가운데 정렬 */
+    /* 4. 마우스를 올렸을 때 색상 변화 */
+    .sidebar-nav a:hover {
+      color: #ff5722 !important; /* 주황색으로 변화 */
+      text-decoration: underline !important;
     }
   </style>
   </head>
