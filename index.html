@@ -8,65 +8,75 @@
   <style>
     :root { --sidebar-width: 250px; }
 
-    /* [디자인 테마 유지] */
-    .sidebar .app-name a { font-size: 30px !important; color: #0056b3 !important; font-weight: 800 !important; text-decoration: none !important; }
-    .sidebar-nav strong { font-size: 24px !important; color: #28a745 !important; display: block !important; margin-top: 25px !important; }
-    .sidebar-nav ul li a { font-size: 20px !important; color: #444 !important; }
+    /* [1. 정원님 전용 디자인 테마] */
+    .sidebar .app-name a { font-size: 28px !important; color: #0056b3 !important; font-weight: 800 !important; }
+    .sidebar-nav strong { font-size: 22px !important; color: #28a745 !important; display: block; margin-top: 20px !important; }
+    .sidebar-nav ul li a { font-size: 19px !important; color: #444 !important; }
     .sidebar-nav a:hover { color: #ff5722 !important; text-decoration: underline !important; }
 
-    /* [2. 본문 우주급 가독성 설정] */
+    /* [2. 본문 우주급 가독성 (줄 간격 2.2배)] */
     .markdown-section {
       font-size: 28px !important; 
-      /* ★ 줄 간격을 2.4배로 늘려 문장 사이를 아주 널널하게 만듦 ★ */
-      line-height: 2.4 !important;
+      line-height: 2.2 !important; /* 문장 사이 간격을 널널하게 */
       color: #222 !important;
-      padding: 50px 30px !important;
+      padding: 40px 25px !important;
     }
-    .markdown-section p, .markdown-section li { margin-bottom: 40px !important; }
-    .markdown-section h1 { font-size: 45px !important; margin-bottom: 40px !important; }
+    .markdown-section p, .markdown-section li { margin-bottom: 35px !important; }
 
-    /* [3. PC 모드 레이아웃] */
+    /* [3. ★ 휴대폰 전용: 정통 사이드바 & 적당한 대왕 버튼 ★] */
+    @media screen and (max-width: 768px) {
+      /* 본문 영역: 평소에는 100% 확장 */
+      .content { 
+        left: 0 !important; 
+        width: 100% !important; 
+        position: absolute !important;
+        transition: transform 0.3s ease !important; /* 옆으로 밀리는 효과 */
+      }
+
+      /* 메뉴가 열리면 본문이 오른쪽으로 슥 밀림 (본문 일부 노출) */
+      body:not(.close) .content {
+        transform: translateX(250px) !important;
+        opacity: 0.4; /* 본문이 있음을 보여주되 메뉴에 집중 */
+      }
+
+      /* 사이드바: 왼쪽에서 나타남 (화면 전체가 아닌 메뉴폭만큼만) */
+      .sidebar {
+        width: 250px !important;
+        height: 100vh !important;
+        left: 0 !important;
+        top: 0 !important;
+        background: white !important;
+        transition: transform 0.3s ease !important;
+        z-index: 1000 !important;
+      }
+      /* 메뉴 닫힘: 왼쪽 밖으로 숨김 */
+      body.close .sidebar { transform: translateX(-250px) !important; }
+      /* 메뉴 열림: 안쪽으로 들어옴 */
+      body:not(.close) .sidebar { transform: translateX(0) !important; }
+
+      /* ★ '적당히 큰' 초록색 삼선 버튼 (80px) ★ */
+      .sidebar-toggle {
+        width: 80px !important; height: 80px !important;
+        background: #28a745 !important;
+        left: 20px !important; bottom: 30px !important; top: auto !important;
+        display: flex !important; align-items: center; justify-content: center;
+        border-radius: 50% !important; z-index: 10001 !important;
+        box-shadow: 0 4px 15px rgba(0,0,0,0.3) !important;
+      }
+      /* 삼선 굵기 조정 */
+      .sidebar-toggle span { 
+        width: 40px !important; height: 5px !important; 
+        background: white !important; margin: 5px 0 !important;
+        display: block;
+      }
+    }
+
+    /* PC 모드: 기존 사이드바 방식 유지 */
     @media screen and (min-width: 769px) {
       .sidebar { left: 0 !important; width: var(--sidebar-width) !important; position: fixed !important; }
       .content { left: var(--sidebar-width) !important; position: absolute !important; }
       body.close .sidebar { transform: translateX(-250px) !important; }
       body.close .content { left: 0 !important; }
-    }
-
-    /* [4. ★ 휴대폰 모드: 진짜 대왕 버튼 & 바텀-업 메뉴 ★] */
-    @media screen and (max-width: 768px) {
-      .content { left: 0 !important; width: 100% !important; transition: opacity 0.3s !important; }
-
-      /* ★ 120px 초대형 삼선 버튼 (장갑 낀 상태에서도 터치 가능) ★ */
-      .sidebar-toggle {
-        width: 120px !important; height: 120px !important;
-        background: #28a745 !important;
-        left: 20px !important; bottom: 30px !important; top: auto !important;
-        display: flex !important; align-items: center; justify-content: center;
-        border-radius: 50% !important; z-index: 10000 !important;
-        box-shadow: 0 10px 30px rgba(0,0,0,0.5) !important;
-      }
-      /* 버튼 안의 ≡ 모양도 훨씬 굵고 크게 */
-      .sidebar-toggle span { 
-        width: 60px !important; height: 8px !important; 
-        background: white !important; margin: 8px 0 !important; 
-        display: block;
-      }
-
-      /* 사이드바: 아래에서 위로 올라오는 서랍장 방식 */
-      .sidebar {
-        width: 100% !important; height: 80vh !important;
-        left: 0 !important; bottom: 0 !important; top: auto !important;
-        background: white !important;
-        border-top: 8px solid #28a745;
-        border-radius: 40px 40px 0 0;
-        transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1) !important;
-        z-index: 9999 !important;
-      }
-
-      body.close .sidebar { transform: translateY(100%) !important; }
-      body:not(.close) .sidebar { transform: translateY(0) !important; }
-      body:not(.close) .content { opacity: 0.1; } /* 메뉴 열리면 본문은 거의 안보이게 */
     }
   </style>
 </head>
