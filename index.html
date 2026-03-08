@@ -77,10 +77,8 @@
       loadSidebar: true,
       subMaxLevel: 2,
       auto2top: true,
-      /* ★ 깃허브 페이지 하위 폴더 경로 문제 해결 ★ */
-      alias: {
-        '/.*/_sidebar.md': '/_sidebar.md'
-      }
+      /* 깃허브 페이지에서는 경로를 상대 경로로 잡는 게 더 안전합니다 */
+      basePath: './' 
     }
   </script>
   <script src="//cdn.jsdelivr.net/npm/docsify/lib/docsify.min.js"></script>
