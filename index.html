@@ -67,6 +67,57 @@
       body:not(.close) .sidebar { transform: translateY(0) !important; }
       body:not(.close) .content { opacity: 0.2; }
     }
+
+    /* [본문 가독성 대폭 강화] */
+    .markdown-section {
+      font-size: 28px !important; 
+      /* 문장 사이의 간격(줄 간격)을 2배로 확대 */
+      line-height: 2.0 !important;
+      color: #222 !important;
+      padding: 40px 25px !important;
+    }
+
+    /* 문단과 문단, 리스트 사이의 간격을 더 넓게 설정 */
+    .markdown-section p, 
+    .markdown-section li { 
+      margin-bottom: 30px !important;
+    }
+
+    /* [4. ★ 휴대폰 전용: 대왕 삼선 버튼 & 레이아웃 ★] */
+    @media screen and (max-width: 768px) {
+      .content { left: 0 !important; width: 100% !important; }
+
+      /* 왼쪽 하단 삼선 버튼: 더 크게(100px), 선은 더 굵게 */
+      .sidebar-toggle {
+        width: 100px !important;
+        height: 100px !important;
+        background: #28a745 !important;
+        left: 20px !important; bottom: 20px !important; top: auto !important;
+        display: flex !important; flex-direction: column; align-items: center; justify-content: center;
+        border-radius: 50% !important; z-index: 1000 !important;
+        box-shadow: 0 6px 20px rgba(0,0,0,0.4) !important;
+      }
+      
+      /* 버튼 안의 '≡' 모양 선들을 더 굵고 길게 조절 */
+      .sidebar-toggle span { 
+        width: 55px !important;
+        height: 7px !important;
+        background: white !important; 
+        margin: 5px 0 !important; 
+      }
+
+      /* 사이드바 애니메이션 및 위치 유지 */
+      .sidebar {
+        width: 100% !important; height: 75vh !important;
+        left: 0 !important; bottom: 0 !important; top: auto !important;
+        background: white !important;
+        border-top: 6px solid #28a745;
+        border-radius: 35px 35px 0 0;
+        transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1) !important;
+      }
+      body.close .sidebar { transform: translateY(100%) !important; }
+      body:not(.close) .sidebar { transform: translateY(0) !important; }
+    }
   </style>
 </head>
 <body>
