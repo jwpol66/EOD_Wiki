@@ -23,9 +23,34 @@
     .sidebar-nav a { font-size: 16px !important; padding: 4px 5px !important; color: #444 !important; display: block !important; text-decoration: none !important; transition: all 0.2s; }
     .sidebar-nav li.active > a, .sidebar-nav a:hover { color: #0056b3 !important; font-weight: bold !important; text-decoration: underline !important; text-decoration-color: #0056b3 !important; }
 
-    /* [본문 가독성 - 정원님 설정 유지] */
-    .markdown-section { font-size: 18px !important; line-height: 3.0 !important; color: #222 !important; padding: 30px 10px !important; }
-    .markdown-section p, .markdown-section li, .markdown-section h1, .markdown-section h2 { margin-top: 0 !important; margin-bottom: 15px !important; }
+    /* [2. ★ 본문 가독성: 줄 간격 유지 & 문단 간격 축소 ★] */
+    .markdown-section {
+      font-size: 18px !important; 
+      line-height: 3.0 !important;
+      color: #222 !important;
+      padding: 30px 20px !important;
+    }
+
+    /* 본문(p), 리스트(li)의 기본 간격 */
+    .markdown-section p, 
+    .markdown-section li { 
+      margin-top: 0 !important;
+      margin-bottom: 10px !important; /* 본문 간격 더 좁게 */
+    }
+
+    /* ★ 핵심: 제목 밑에 바로 내용이 붙도록 설정 ★ */
+    .markdown-section h1, 
+    .markdown-section h2, 
+    .markdown-section h3 { 
+      margin-top: 30px !important; /* 제목 위쪽은 여유를 주고 */
+      margin-bottom: 5px !important; /* ★ 제목 아래쪽은 5px로 바짝 붙임 ★ */
+    }
+
+    /* ★ 리스트(점 찍힌 항목)가 시작될 때 위쪽 여백 완전 제거 ★ */
+    .markdown-section ul, 
+    .markdown-section ol {
+      margin-top: 0 !important;
+    }
 
     /* [레이아웃 제어 - 자석 효과 유지] */
     .sidebar { position: fixed !important; top: 0 !important; height: 100vh !important; background: white !important; transition: transform 0.3s ease !important; z-index: 1000 !important; border-right: 1px solid #eee; }
