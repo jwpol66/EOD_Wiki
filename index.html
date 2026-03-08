@@ -6,21 +6,22 @@
   
   <style>
     :root {
+      /* 정원님이 설정하신 사이드바 폭 유지 */
       --sidebar-width: 200px;
     }
 
-    /* 1. 사이드바 제목 (EOD 지식창고) - 짙은 파란색으로 */
+    /* 1. 사이드바 제목 (EOD 지식창고) - 짙은 파란색 */
     .sidebar .app-name a {
       font-size: 35px !important;
-      color: #0056b3 !important; /* 확실한 파란색 */
+      color: #0056b3 !important;
       font-weight: 800 !important;
       text-decoration: none;
     }
 
-    /* 2. 상위 카테고리 (화공품 정보 등) - 진한 녹색으로 */
+    /* 2. 상위 카테고리 (화공품 정보 등) - 진한 녹색 */
     .sidebar-nav strong {
       font-size: 25px !important;
-      color: #28a745 !important; /* 확실한 녹색 */
+      color: #28a745 !important;
       display: block;
       margin-top: 25px;
     }
@@ -32,10 +33,25 @@
       padding: 10px 0 !important;
     }
 
-    /* 4. 마우스를 올렸을 때 색상 변화 */
+    /* 4. 마우스를 올렸을 때 색상 변화 (주황/빨강) - 정원님 코드 그대로 유지 */
     .sidebar-nav a:hover {
-      color: #ff5722 !important; /* 주황색으로 변화 */
+      color: #ff5722 !important;
       text-decoration: underline !important;
+    }
+
+    /* 5. ★신규 추가: 본문을 사이드바 쪽으로 당기기★ */
+    .content {
+      /* 사이드바가 끝나는 200px 지점에서 본문이 바로 시작되게 함 */
+      left: var(--sidebar-width) !important; 
+      /* 사이드바와 글자 사이의 간격을 '한두 칸' 정도로 최소화 */
+      padding-left: 20px !important; 
+    }
+
+    /* 본문 영역 내부의 불필요한 왼쪽 여백 제거 */
+    .markdown-section {
+      max-width: 95% !important;
+      margin: 0 !important;
+      padding-left: 10px !important;
     }
   </style>
   </head>
