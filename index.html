@@ -10,29 +10,54 @@
       --sidebar-width-mobile: 110px; 
     }
 
-    /* [1. 사이드바 디자인] */
+    /* [1. 사이드바 디자인 및 들여쓰기 완전 박멸] */
     .sidebar .app-name a { font-size: 19px !important; line-height: 1.2 !important; display: block !important; color: #0056b3 !important; font-weight: 800 !important; }
-    .sidebar-nav strong { font-size: 17px !important; color: #28a745 !important; padding-left: 5px !important; margin-top: 15px !important; display: block; }
     
-    /* ★ 클릭/호버 시 파란색 및 파란 밑줄 적용 ★ */
-    .sidebar-nav a { font-size: 16px !important; padding-left: 5px !important; color: #444 !important; transition: all 0.2s; }
-    .sidebar-nav a:hover, .sidebar-nav li.active > a { 
-      color: #0056b3 !important; 
-      text-decoration: underline !important;
-      text-decoration-color: #0056b3 !important; /* 밑줄도 파랑 */
-      font-weight: bold !important;
+    /* 모든 리스트의 여백을 0으로 강제 */
+    .sidebar-nav, .sidebar-nav ul, .sidebar-nav li { 
+      margin: 0 !important; 
+      padding: 0 !important; 
+      list-style: none !important;
     }
 
-    /* [2. ★ 본문 크기 절반 축소 및 줄 간격 확대 ★] */
+    .sidebar-nav strong { 
+      font-size: 17px !important; 
+      color: #28a745 !important; 
+      padding-left: 5px !important; 
+      margin-top: 15px !important; 
+      display: block; 
+    }
+
+    /* 메뉴 기본 스타일 */
+    .sidebar-nav a { 
+      font-size: 16px !important; 
+      padding: 8px 5px !important; /* 터치하기 편하게 위아래 여백만 살짝 부여 */
+      color: #444 !important; 
+      display: block !important;
+      text-decoration: none !important;
+      transition: all 0.2s;
+    }
+
+    /* ★ 클릭된 메뉴(active) 및 호버 시 파란색 강조 ★ */
+    /* Docsify는 현재 페이지의 li에 .active 클래스를 붙입니다 */
+    .sidebar-nav li.active > a, 
+    .sidebar-nav a:hover { 
+      color: #0056b3 !important; 
+      font-weight: bold !important;
+      text-decoration: underline !important;
+      text-decoration-color: #0056b3 !important;
+    }
+
+    /* [2. 본문 가독성: 18px & 줄 간격 3.0] */
     .markdown-section {
-      font-size: 18px !important; /* 기존 28px에서 크게 줄여 가독성 확보 */
-      line-height: 3.0 !important; /* 문장 사이 간격을 3배로 더 넓게 설정 */
+      font-size: 18px !important; 
+      line-height: 3.0 !important;
       color: #222 !important;
       padding: 30px 20px !important;
     }
     .markdown-section p, .markdown-section li { margin-bottom: 45px !important; }
 
-    /* [3. 레이아웃 제어 (자석 효과)] */
+    /* [3. 레이아웃 제어] */
     .sidebar { position: fixed !important; top: 0 !important; height: 100vh !important; background: white !important; transition: transform 0.3s ease !important; z-index: 1000 !important; border-right: 1px solid #eee; }
     .content { position: absolute !important; top: 0 !important; right: 0 !important; transition: all 0.3s ease !important; }
 
@@ -49,13 +74,7 @@
       body.close .sidebar { transform: translateX(-110px) !important; }
       body.close .content { left: 0 !important; width: 100% !important; transform: none !important; }
 
-      .sidebar-toggle {
-        width: 70px !important; height: 70px !important;
-        background: #28a745 !important;
-        left: 15px !important; bottom: 25px !important; top: auto !important;
-        display: flex !important; align-items: center; justify-content: center;
-        border-radius: 50% !important; z-index: 1001 !important;
-      }
+      .sidebar-toggle { width: 70px !important; height: 70px !important; background: #28a745 !important; left: 15px !important; bottom: 25px !important; top: auto !important; display: flex !important; align-items: center; justify-content: center; border-radius: 50% !important; z-index: 1001 !important; }
       .sidebar-toggle span { width: 30px !important; height: 4px !important; background: white !important; margin: 4px 0 !important; display: block; }
       .sidebar-overlay { display: none !important; }
     }
