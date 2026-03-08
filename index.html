@@ -67,6 +67,11 @@
       transition: transform 0.3s ease !important; 
       z-index: 1000 !important; 
       border-right: 1px solid #eee; 
+      /* [Docsify 기본 내장 스크립트의 우측 밀림(튕김) 현상 완벽 원천 차단] */
+    main {
+      transform: none !important;
+      left: 0 !important;
+    }
     }
 
     .content { 
