@@ -19,3 +19,7 @@
 * **관련 규정📖**
   * [대피 거리](clearance.md)
   * [안전 관리 수칙](safety_rules.md)
+
+* **폭발물 사건🚨**
+  * [국내 사례](case_kr.md)
+  * [해외 사례](case_intl.md)
