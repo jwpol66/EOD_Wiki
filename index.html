@@ -52,23 +52,27 @@
       margin-top: 0 !important;
     }
 
-    /* [레이아웃 제어 - 자석 효과 유지] */
+/* [레이아웃 제어 - 자석 효과 유지] */
     /* [화면 가로 흔들림 완벽 차단] */
-    body, html { overflow-x: hidden !important; } 
+    body, html { 
+      overflow-x: hidden !important; 
+      width: 100% !important;
+      margin: 0 !important;
+      padding: 0 !important;
+    } 
 
-    /* [Docsify 기본 내장 스크립트의 우측 밀림(튕김) 현상 완벽 원천 차단] */
-    main {
+    /* [Docsify 기본 내장 스크립트 튕김 완벽 차단 (핵폭탄급 고정)] */
+    main, section.content, #app, .markdown-section {
       transform: none !important;
-      left: 0 !important;
-      position: relative !important; 
+      position: relative !important;
     }
 
-    /* [레이아웃 제어 (우측 튕김 방지)] */
+    /* [레이아웃 제어 (PC/공통)] */
     .sidebar { 
       position: fixed !important; 
       top: 0 !important; 
-      left: 0 !important; /* ★무조건 왼쪽에 못 박기★ */
-      right: auto !important; /* ★오른쪽으로 넘어가는 것 절대 차단★ */
+      left: 0 !important; 
+      right: auto !important; 
       height: 100vh !important; 
       background: white !important; 
       transition: transform 0.3s ease !important; 
@@ -79,10 +83,11 @@
     .content { 
       position: absolute !important; 
       top: 0 !important; 
-      left: 0 !important; /* ★기준점을 왼쪽으로만 통일★ */
+      left: 0 !important; 
       transition: all 0.3s ease !important; 
     }
 
+    /* PC 화면 설정 (기존과 동일하게 부드럽게 밀림) */
     @media screen and (min-width: 769px) {
       .sidebar { width: var(--sidebar-width-pc) !important; left: 0 !important; }
       body:not(.close) .content { left: var(--sidebar-width-pc) !important; width: calc(100% - var(--sidebar-width-pc)) !important; }
@@ -90,12 +95,26 @@
       body.close .content { left: 0 !important; width: 100% !important; }
     }
 
+    /* 모바일 화면 설정 (★여기서 튕김 현상 완벽 해결★) */
     @media screen and (max-width: 768px) {
-      .sidebar { width: var(--sidebar-width-mobile) !important; left: 0 !important; }
-      body:not(.close) .content { left: var(--sidebar-width-mobile) !important; width: calc(100% - var(--sidebar-width-mobile)) !important; transform: none !important; }
-      body.close .sidebar { transform: translateX(-110px) !important; }
-      body.close .content { left: 0 !important; width: 100% !important; transform: none !important; }
-      .sidebar-toggle { width: 40px !important; height: 40px !important; background: #28a745 !important; left: 15px !important; bottom: 25px !important; top: auto !important; display: flex !important; align-items: center; justify-content: center; border-radius: 50% !important; z-index: 1001 !important; }
+      .sidebar { 
+        width: var(--sidebar-width-mobile) !important; 
+        left: 0 !important; 
+        z-index: 9999 !important; /* 모바일 메뉴는 무조건 최상단으로 */
+        box-shadow: 2px 0 10px rgba(0,0,0,0.1); /* 메뉴 열릴 때 입체감 추가 */
+      }
+      
+      /* ★ 핵심 해결책: 모바일에서 삼선 메뉴를 눌러도 본문(.content)은 절대 움직이지 않음 ★ */
+      body:not(.close) .content,
+      body.close .content { 
+        left: 0 !important; 
+        width: 100% !important; 
+        transform: none !important; 
+      }
+      
+      body.close .sidebar { transform: translateX(-120px) !important; } /* 메뉴 닫을 때 사이드바만 쏙 숨김 */
+      
+      .sidebar-toggle { width: 40px !important; height: 40px !important; background: #28a745 !important; left: 15px !important; bottom: 25px !important; top: auto !important; display: flex !important; align-items: center; justify-content: center; border-radius: 50% !important; z-index: 10000 !important; }
       .sidebar-toggle span { width: 20px !important; height: 3px !important; background: white !important; margin: 4px 0 !important; display: block; }
       .sidebar-overlay { display: none !important; }
     }
