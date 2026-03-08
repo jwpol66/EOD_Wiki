@@ -5,63 +5,74 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
   <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/docsify/themes/vue.css">
   <style>
+    /* [1. 기본 변수 설정] */
     :root { 
       --sidebar-width-pc: 250px; 
       --sidebar-width-mobile: 180px; 
     }
 
-    /* [1. 정원님 테마 디자인 유지] */
+    /* [2. 정원님 테마 디자인 유지] */
     .sidebar .app-name a { font-size: 26px !important; color: #0056b3 !important; font-weight: 800 !important; text-decoration: none !important; }
     .sidebar-nav strong { font-size: 18px !important; color: #28a745 !important; display: block; margin-top: 15px !important; }
     .sidebar-nav ul li a { font-size: 17px !important; color: #444 !important; }
 
-    /* [2. 본문 우주급 가독성: 줄 간격 2.2배] */
+    /* [3. 본문 가독성: 줄 간격 2.2배] */
     .markdown-section {
       font-size: 28px !important; 
       line-height: 2.2 !important;
       padding: 30px 20px !important;
     }
 
-    /* [3. PC 모드 (성공했던 설정 그대로)] */
-    @media screen and (min-width: 769px) {
-      .sidebar { left: 0 !important; width: var(--sidebar-width-pc) !important; position: fixed !important; }
-      .content { left: var(--sidebar-width-pc) !important; position: absolute !important; transition: left 0.3s ease; }
-      body.close .sidebar { transform: translateX(-250px) !important; }
-      body.close .content { left: 0 !important; }
+    /* [4. ★ 핵심: PC와 모바일 통합 레이아웃 제어 ★] */
+    
+    /* 사이드바 공통 설정 */
+    .sidebar {
+      position: fixed !important;
+      top: 0 !important;
+      height: 100vh !important;
+      background: white !important;
+      transition: transform 0.3s ease !important;
+      z-index: 1000 !important;
     }
 
-    /* [4. ★ 휴대폰 전용: 자석처럼 붙는 사이드바 ★] */
+    /* 본문 공통 설정 */
+    .content {
+      position: absolute !important;
+      top: 0 !important;
+      right: 0 !important;
+      transition: all 0.3s ease !important;
+    }
+
+    /* (A) PC 버전 (769px 이상) */
+    @media screen and (min-width: 769px) {
+      .sidebar { width: var(--sidebar-width-pc) !important; left: 0 !important; }
+      /* 메뉴 열림 */
+      body:not(.close) .content { left: var(--sidebar-width-pc) !important; width: calc(100% - var(--sidebar-width-pc)) !important; }
+      /* 메뉴 닫힘 */
+      body.close .sidebar { transform: translateX(-250px) !important; }
+      body.close .content { left: 0 !important; width: 100% !important; }
+    }
+
+    /* (B) 모바일 버전 (768px 이하) */
     @media screen and (max-width: 768px) {
-      /* 사이드바 설정 */
-      .sidebar {
-        width: var(--sidebar-width-mobile) !important;
-        height: 100vh !important;
-        left: 0 !important; top: 0 !important;
-        transition: transform 0.3s ease !important;
-        z-index: 1000 !important;
+      .sidebar { width: var(--sidebar-width-mobile) !important; left: 0 !important; }
+      
+      /* ★ 메뉴 열림: 본문이 도망가지 않고 사이드바 바로 옆에 딱 붙음 ★ */
+      body:not(.close) .content { 
+        left: var(--sidebar-width-mobile) !important; 
+        width: calc(100% - var(--sidebar-width-mobile)) !important; 
+        transform: none !important; /* Docsify의 자동 밀어내기 방지 */
       }
-
-      /* 본문 영역 설정 */
-      .content {
-        position: absolute !important;
-        transition: all 0.3s ease !important;
-      }
-
-      /* ★ 상황 1: 메뉴가 닫혔을 때 (body.close) ★ */
-      body.close .sidebar { transform: translateX(-180px) !important; } /* 완전히 숨김 */
+      
+      /* ★ 메뉴 닫힘: 본문이 왼쪽 끝(0)부터 꽉 참 ★ */
+      body.close .sidebar { transform: translateX(-180px) !important; }
       body.close .content { 
-        left: 0 !important; /* 왼쪽 끝으로 복귀 */
-        width: 100% !important; /* 화면 꽉 채움 */
+        left: 0 !important; 
+        width: 100% !important; 
+        transform: none !important; 
       }
 
-      /* ★ 상황 2: 메뉴가 열렸을 때 (body:not(.close)) ★ */
-      body:not(.close) .sidebar { transform: translateX(0) !important; } /* 메뉴 나타남 */
-      body:not(.close) .content {
-        left: var(--sidebar-width-mobile) !important; /* 사이드바 폭만큼 이동 */
-        width: calc(100% - var(--sidebar-width-mobile)) !important; /* 남은 공간에 딱 맞춤 */
-      }
-
-      /* 초록색 삼선 버튼 (적당한 80px 크기) */
+      /* 초록색 삼선 버튼 (적당한 80px) */
       .sidebar-toggle {
         width: 80px !important; height: 80px !important;
         background: #28a745 !important;
@@ -70,6 +81,9 @@
         border-radius: 50% !important; z-index: 1001 !important;
       }
       .sidebar-toggle span { width: 40px !important; height: 5px !important; background: white !important; margin: 5px 0 !important; display: block; }
+      
+      /* 모바일에서 배경 어두워지는 효과 제거 (PC처럼 보이게) */
+      .sidebar-overlay { display: none !important; }
     }
   </style>
 </head>
