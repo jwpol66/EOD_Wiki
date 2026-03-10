@@ -5,171 +5,52 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
   <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/docsify/themes/vue.css">
   <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/docsify-sidebar-collapse/dist/sidebar.min.css" />
-  
+
   <style>
-    :root { 
-      --sidebar-width-pc: 250px; 
-      --sidebar-width-mobile: 110px; 
+    :root {
+      --sidebar-width-pc: 250px;
+      --sidebar-width-mobile: 110px;
     }
 
-    /* [사이드바 디자인 - 기존 유지] */
+    /* 사이드바 디자인 */
     .sidebar .app-name a { font-size: 19px !important; line-height: 1.2 !important; display: block !important; color: #0056b3 !important; font-weight: 800 !important; }
     .sidebar-nav, .sidebar-nav ul, .sidebar-nav li { margin: 0 !important; padding: 0 !important; list-style: none !important; }
-    
+
     /* 카테고리 제목(초록색) */
     .sidebar-nav strong { font-size: 17px !important; color: #28a745 !important; padding-left: 5px !important; margin-top: 15px !important; display: block; cursor: pointer; }
     
+    /* 화살표 숨기기 (경사님 요청) */
+    .sidebar-nav .folder::after { display: none !important; content: none !important; background: none !important; }
+
     /* 메뉴 및 클릭 시 파란색 강조 */
     .sidebar-nav a { font-size: 16px !important; padding: 4px 5px !important; color: #444 !important; display: block !important; text-decoration: none !important; transition: all 0.2s; }
     .sidebar-nav li.active > a, .sidebar-nav a:hover { color: #0056b3 !important; font-weight: bold !important; text-decoration: underline !important; text-decoration-color: #0056b3 !important; }
 
-    /* [2. ★ 본문 가독성: 줄 간격 유지 & 문단 간격 축소 ★] */
-    .markdown-section {
-      font-size: 18px !important; 
-      line-height: 3.0 !important;
-      color: #222 !important;
-      padding: 30px 20px !important;
-    }
+    /* 본문 가독성 스타일 */
+    .markdown-section { font-size: 18px !important; line-height: 3.0 !important; color: #222 !important; padding: 30px 20px !important; }
+    .markdown-section h1, .markdown-section h2, .markdown-section h3 { margin-top: 30px !important; margin-bottom: 5px !important; }
 
-    /* 본문(p), 리스트(li)의 기본 간격 */
-    .markdown-section p, 
-    .markdown-section li { 
-      margin-top: 0 !important;
-      margin-bottom: 10px !important; /* 본문 간격 더 좁게 */
-    }
-
-    /* ★ 핵심: 제목 밑에 바로 내용이 붙도록 설정 ★ */
-    .markdown-section h1, 
-    .markdown-section h2, 
-    .markdown-section h3 { 
-      margin-top: 30px !important; /* 제목 위쪽은 여유를 주고 */
-      margin-bottom: 5px !important; /* ★ 제목 아래쪽은 5px로 바짝 붙임 ★ */
-    }
-
-    /* ★ 리스트(점 찍힌 항목)가 시작될 때 위쪽 여백 완전 제거 ★ */
-    .markdown-section ul, 
-    .markdown-section ol {
-      margin-top: 0 !important;
-    }
-
-/* [레이아웃 제어 - 자석 효과 유지] */
-    /* [화면 가로 흔들림 완벽 차단] */
-    body, html { overflow-x: hidden !important; } 
-
-    /* ★ Docsify 기본 내장 스크립트(vue.css)의 본문 밀림 강제 속성 덮어쓰기 ★ */
-    body main,
-    body.close main,
-    body:not(.close) main {
-      transform: none !important;
-      left: 0 !important;
-    }
-
-    /* [레이아웃 제어 (우측 튕김 방지)] */
-    .sidebar { 
-      position: fixed !important; 
-      top: 0 !important; 
-      left: 0 !important; 
-      right: auto !important; 
-      height: 100vh !important; 
-      background: white !important; 
-      transition: transform 0.3s ease !important; 
-      z-index: 1000 !important; 
-      border-right: 1px solid #eee; 
-    }
-
-    .content { 
-      position: absolute !important; 
-      top: 0 !important; 
-      left: 0 !important; 
-      transition: all 0.3s ease !important; 
-    }
+    /* 레이아웃 및 자석 효과 */
+    body, html { overflow-x: hidden !important; }
+    .sidebar { position: fixed !important; top: 0; left: 0; height: 100vh !important; background: white !important; transition: transform 0.3s ease !important; z-index: 1000 !important; border-right: 1px solid #eee; }
+    .content { position: absolute !important; top: 0; left: 0; transition: all 0.3s ease !important; }
 
     @media screen and (min-width: 769px) {
-      .sidebar { width: var(--sidebar-width-pc) !important; left: 0 !important; transform: none !important; }
+      .sidebar { width: var(--sidebar-width-pc) !important; transform: none !important; }
       body:not(.close) .content { left: var(--sidebar-width-pc) !important; width: calc(100% - var(--sidebar-width-pc)) !important; }
-      body.close .sidebar { transform: translateX(-250px) !important; }
-      body.close .content { left: 0 !important; width: 100% !important; }
     }
 
+    /* 모바일 초록색 버튼 UI */
     @media screen and (max-width: 768px) {
-      .sidebar { width: var(--sidebar-width-mobile) !important; left: 0 !important; }
-      
-      /* ★ 여기가 빠져서 문제였습니다! 열렸을 때 우측으로 300px 날아가는 기본 속성 완벽 차단 ★ */
-      body:not(.close) .sidebar { 
-        transform: none !important; 
-      }
-      
-      /* 모바일에서 메뉴 열 때: 본문이 110px 옆으로 밀려남 */
-      body:not(.close) .content { 
-        left: var(--sidebar-width-mobile) !important; 
-        width: calc(100% - var(--sidebar-width-mobile)) !important; 
-        transform: none !important; 
-      }
-      
-      /* 모바일에서 메뉴 닫을 때: 사이드바 숨김, 본문 원상복구 */
+      .sidebar { width: var(--sidebar-width-mobile) !important; }
+      body:not(.close) .content { left: var(--sidebar-width-mobile) !important; width: calc(100% - var(--sidebar-width-mobile)) !important; }
       body.close .sidebar { transform: translateX(-110px) !important; }
-      body.close .content { left: 0 !important; width: 100% !important; transform: none !important; }
-      
-      .sidebar-toggle { width: 40px !important; height: 40px !important; background: #28a745 !important; left: 15px !important; bottom: 25px !important; top: auto !important; display: flex !important; align-items: center; justify-content: center; border-radius: 50% !important; z-index: 1001 !important; }
+      .sidebar-toggle { width: 40px !important; height: 40px !important; background: #28a745 !important; left: 15px !important; bottom: 25px !important; position: fixed !important; border-radius: 50% !important; z-index: 1001 !important; display: flex !important; align-items: center; justify-content: center; }
       .sidebar-toggle span { width: 20px !important; height: 3px !important; background: white !important; margin: 4px 0 !important; display: block; }
-      .sidebar-overlay { display: none !important; }
-    }
-    /* [카드형 UI 디자인] */
-    .card-container {
-      display: grid;
-      /* 화면 너비에 따라 카드가 자동으로 배치됩니다 */
-      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-      gap: 20px;
-      margin-top: 20px;
     }
 
-    .case-card {
-      background: #ffffff !important;
-      border: 1px solid #e0e0e0 !important;
-      border-radius: 12px !important;
-      padding: 20px !important;
-      text-decoration: none !important; /* 밑줄 제거 */
-      transition: all 0.3s ease !important;
-      box-shadow: 0 4px 6px rgba(0,0,0,0.05) !important;
-      display: flex;
-      flex-direction: column;
-    }
-
-    /* 마우스를 올렸을 때 살짝 떠오르는 효과 */
-    .case-card:hover {
-      transform: translateY(-5px) !important;
-      box-shadow: 0 10px 20px rgba(0,0,0,0.1) !important;
-      border-color: #28a745 !important; /* EOD 테마인 초록색 강조 */
-    }
-
-    .case-card h4 { margin: 0 0 10px 0 !important; color: #0056b3 !important; font-size: 18px !important; }
-    .case-card p { font-size: 14px !important; color: #555 !important; line-height: 1.5 !important; flex-grow: 1; }
-    .case-card .date { font-size: 12px !important; color: #aaa !important; text-align: right; margin-top: 10px; }
-
-    /* [플로팅 뒤로가기 버튼] */
-    .back-to-list {
-      position: fixed;
-      bottom: 30px;
-      right: 30px;
-      width: 50px;
-      height: 50px;
-      background: #333; /* 어두운 회색 */
-      color: white !important;
-      border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      text-decoration: none !important;
-      font-size: 24px;
-      box-shadow: 0 4px 10px rgba(0,0,0,0.3);
-      z-index: 1000;
-      transition: all 0.2s;
-    }
-
-    .back-to-list:hover { 
-      background: #28a745; /* 마우스 올리면 초록색으로 */
-      transform: scale(1.1); 
-    }
+    /* 뒤로가기 버튼 */
+    .back-to-list { position: fixed; bottom: 30px; right: 30px; width: 50px; height: 50px; background: #333; color: white !important; border-radius: 50%; display: flex; align-items: center; justify-content: center; text-decoration: none !important; font-size: 24px; z-index: 1000; }
   </style>
 </head>
 <body>
@@ -178,11 +59,12 @@
     window.$docsify = {
       name: 'EOD<br>지식창고',
       loadSidebar: true,
-      subMaxLevel: 2,
-      auto2top: true,
-      basePath: './',
-      /* ★ 2. 사이드바 접기 설정 추가 ★ */
-      sidebarDisplay: 'collapse'
+      subMaxLevel: 0,
+      alias: { '/.*/_sidebar.md': '/_sidebar.md' },
+      sidebarCollapse: {
+        collapse: true
+        // showArrow: true 옵션을 삭제하여 화살표를 없앴습니다.
+      }
     }
   </script>
   <script src="//cdn.jsdelivr.net/npm/docsify/lib/docsify.min.js"></script>

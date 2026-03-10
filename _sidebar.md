@@ -1,25 +1,31 @@
-* **[🏠홈으로](README.md)**
+* **🏠 [홈으로](README.md)**
 
-* **폭약💥**
-  * [TNT](tnt.md)
-  * [C4/복합폭약](c4.md)
+* **폭약 🧨**
+  * [**📂 폭약 메인**](explosives/README.md)
+  * [TNT](explosives/tnt.md)
+  * [C4 / 복합폭약](explosives/c4.md)
 
-* **화공품🧨**
-  * [전기식 뇌관](detonator.md)
-  * [비전기식 뇌관](non_electric.md)
+* **화공품 💥**
+  * [**📂 화공품 메인**](initiators/README.md)
+  * [전기식 뇌관](initiators/detonator.md)
+  * [비전기식 뇌관](initiators/non_electric.md)
 
-* **전자&전기⚡**
-  * [기초 전기이론](electricity.md)
-  * [회로 분석](circuits.md)
+* **전지&전기 ⚡**
+  * [**📂 전지&전기 메인**](electricity/README.md)
+  * [기초 전기이론](electricity/electricity.md)
+  * [회로 분석](electricity/circuits.md)
 
-* **EOD장비🤖**
-  * [X-ray 장비](xray.md)
-  * [폭발물 처리 로봇](robot.md)
+* **EOD 장비 🤖**
+  * [**📂 장비 메인**](equipment/README.md)
+  * [X-ray 장비](equipment/xray.md)
+  * [폭발물 처리 로봇](equipment/robot.md)
 
-* **관련 규정📖**
-  * [대피 거리](clearance.md)
-  * [안전 관리 수칙](safety_rules.md)
+* **관련 규정 📘**
+  * [**📂 규정 메인**](regulations/README.md)
+  * [대피 거리](regulations/clearance.md)
+  * [안전 관리 수칙](regulations/safety_rules.md)
 
-* **폭발물 사건🚨**
-  * [국내 사례](case_kr.md)
-  * [해외 사례](case_intl.md)
+* **폭발물 사건 🚨**
+  * [**📂 사건 사례 메인**](cases/README.md)
+  * [국내 사례](cases/case_kr.md)
+  * [해외 사례](cases/case_intl.md)
