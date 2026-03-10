@@ -19,7 +19,7 @@
     /* 카테고리 제목(초록색) */
     .sidebar-nav strong { font-size: 17px !important; color: #28a745 !important; padding-left: 5px !important; margin-top: 15px !important; display: block; cursor: pointer; }
     
-    /* 화살표 숨기기 (경사님 요청) */
+    /* 화살표 숨기기 */
     .sidebar-nav .folder::after { display: none !important; content: none !important; background: none !important; }
 
     /* 메뉴 및 클릭 시 파란색 강조 */
@@ -42,9 +42,15 @@
 
     /* 모바일 초록색 버튼 UI */
     @media screen and (max-width: 768px) {
-      .sidebar { width: var(--sidebar-width-mobile) !important; }
-      body:not(.close) .content { left: var(--sidebar-width-mobile) !important; width: calc(100% - var(--sidebar-width-mobile)) !important; }
+      .sidebar { width: var(--sidebar-width-mobile) !important; left: 0 !important; }
+      
+      /* ★ 예전에 고쳤던 핵심 코드 복구! (사이드바 날아감 완벽 차단) ★ */
+      body:not(.close) .sidebar { transform: none !important; }
+      body:not(.close) .content { left: var(--sidebar-width-mobile) !important; width: calc(100% - var(--sidebar-width-mobile)) !important; transform: none !important; }
+      
       body.close .sidebar { transform: translateX(-110px) !important; }
+      body.close .content { left: 0 !important; width: 100% !important; transform: none !important; }
+      
       .sidebar-toggle { width: 40px !important; height: 40px !important; background: #28a745 !important; left: 15px !important; bottom: 25px !important; position: fixed !important; border-radius: 50% !important; z-index: 1001 !important; display: flex !important; align-items: center; justify-content: center; }
       .sidebar-toggle span { width: 20px !important; height: 3px !important; background: white !important; margin: 4px 0 !important; display: block; }
     }
@@ -63,7 +69,6 @@
       alias: { '/.*/_sidebar.md': '/_sidebar.md' },
       sidebarCollapse: {
         collapse: true
-        // showArrow: true 옵션을 삭제하여 화살표를 없앴습니다.
       }
     }
   </script>
