@@ -10,8 +10,8 @@
   * [전기식 뇌관](initiators/detonator.md)
   * [비전기식 뇌관](initiators/non_electric.md)
 
-* **전지&전기 ⚡**
-  * [**📂 전지&전기 메인**](electricity/README.md)
+* **전자&전기 ⚡**
+  * [**📂 전자&전기 메인**](electricity/README.md)
   * [기초 전기이론](electricity/electricity.md)
   * [회로 분석](electricity/circuits.md)
 

@@ -5,71 +5,61 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
   <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/docsify/themes/vue.css">
   <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/docsify-sidebar-collapse/dist/sidebar.min.css" />
-
   <style>
-    :root {
-      --sidebar-width-pc: 250px;
-      --sidebar-width-mobile: 110px;
+    :root{--w-pc:250px;--w-mo:110px}
+    /* 사이드바 및 본문 디자인 압축 */
+    .sidebar .app-name a{font-size:19px!important;line-height:1.2!important;display:block!important;color:#0056b3!important;font-weight:800!important}
+    .sidebar-nav,.sidebar-nav ul,.sidebar-nav li{margin:0!important;padding:0!important;list-style:none!important}
+    .sidebar-nav strong{font-size:17px!important;color:#28a745!important;padding-left:5px!important;margin-top:15px!important;display:block;cursor:pointer}
+    .sidebar-nav .folder::after{display:none!important;content:none!important}
+    .sidebar-nav a{font-size:16px!important;padding:4px 5px!important;color:#444!important;display:block!important;text-decoration:none!important;transition:all .2s}
+    .sidebar-nav li.active>a,.sidebar-nav a:hover{color:#0056b3!important;font-weight:bold!important;text-decoration:underline!important}
+    .markdown-section{font-size:18px!important;line-height:3.0!important;color:#222!important;padding:30px 20px!important}
+    .markdown-section h1,.markdown-section h2,.markdown-section h3{margin-top:30px!important;margin-bottom:5px!important}
+    /* 레이아웃 제어 압축 */
+    body,html{overflow-x:hidden!important}
+    .sidebar{position:fixed!important;top:0;left:0;height:100vh!important;background:#fff!important;z-index:1000!important;border-right:1px solid #eee}
+    .content{position:absolute!important;top:0;left:0;transition:all .3s ease!important}
+    @media screen and (min-width:769px){
+      .sidebar{width:var(--w-pc)!important;transform:none!important}
+      body:not(.close) .content{left:var(--w-pc)!important;width:calc(100% - var(--w-pc))!important}
     }
-
-    /* 사이드바 디자인 */
-    .sidebar .app-name a { font-size: 19px !important; line-height: 1.2 !important; display: block !important; color: #0056b3 !important; font-weight: 800 !important; }
-    .sidebar-nav, .sidebar-nav ul, .sidebar-nav li { margin: 0 !important; padding: 0 !important; list-style: none !important; }
-
-    /* 카테고리 제목(초록색) */
-    .sidebar-nav strong { font-size: 17px !important; color: #28a745 !important; padding-left: 5px !important; margin-top: 15px !important; display: block; cursor: pointer; }
-    
-    /* 화살표 숨기기 */
-    .sidebar-nav .folder::after { display: none !important; content: none !important; background: none !important; }
-
-    /* 메뉴 및 클릭 시 파란색 강조 */
-    .sidebar-nav a { font-size: 16px !important; padding: 4px 5px !important; color: #444 !important; display: block !important; text-decoration: none !important; transition: all 0.2s; }
-    .sidebar-nav li.active > a, .sidebar-nav a:hover { color: #0056b3 !important; font-weight: bold !important; text-decoration: underline !important; text-decoration-color: #0056b3 !important; }
-
-    /* 본문 가독성 스타일 */
-    .markdown-section { font-size: 18px !important; line-height: 3.0 !important; color: #222 !important; padding: 30px 20px !important; }
-    .markdown-section h1, .markdown-section h2, .markdown-section h3 { margin-top: 30px !important; margin-bottom: 5px !important; }
-
-    /* 레이아웃 및 자석 효과 */
-    body, html { overflow-x: hidden !important; }
-    .sidebar { position: fixed !important; top: 0; left: 0; height: 100vh !important; background: white !important; transition: transform 0.3s ease !important; z-index: 1000 !important; border-right: 1px solid #eee; }
-    .content { position: absolute !important; top: 0; left: 0; transition: all 0.3s ease !important; }
-
-    @media screen and (min-width: 769px) {
-      .sidebar { width: var(--sidebar-width-pc) !important; transform: none !important; }
-      body:not(.close) .content { left: var(--sidebar-width-pc) !important; width: calc(100% - var(--sidebar-width-pc)) !important; }
+    @media screen and (max-width:768px){
+      .sidebar{width:var(--w-mo)!important;left:0!important}
+      body:not(.close) .sidebar{transform:none!important}
+      body:not(.close) .content{left:var(--w-mo)!important;width:calc(100% - var(--w-mo))!important;transform:none!important}
+      body.close .sidebar{transform:translateX(-110px)!important}
+      body.close .content{left:0!important;width:100%!important;transform:none!important}
+      .sidebar-toggle{width:40px!important;height:40px!important;background:#28a745!important;left:15px!important;bottom:25px!important;position:fixed!important;border-radius:50%!important;z-index:1001!important;display:flex!important;align-items:center;justify-content:center}
+      .sidebar-toggle span{width:20px!important;height:3px!important;background:#fff!important;margin:4px 0!important;display:block}
     }
-
-    /* 모바일 초록색 버튼 UI */
-    @media screen and (max-width: 768px) {
-      .sidebar { width: var(--sidebar-width-mobile) !important; left: 0 !important; }
-      
-      /* ★ 예전에 고쳤던 핵심 코드 복구! (사이드바 날아감 완벽 차단) ★ */
-      body:not(.close) .sidebar { transform: none !important; }
-      body:not(.close) .content { left: var(--sidebar-width-mobile) !important; width: calc(100% - var(--sidebar-width-mobile)) !important; transform: none !important; }
-      
-      body.close .sidebar { transform: translateX(-110px) !important; }
-      body.close .content { left: 0 !important; width: 100% !important; transform: none !important; }
-      
-      .sidebar-toggle { width: 40px !important; height: 40px !important; background: #28a745 !important; left: 15px !important; bottom: 25px !important; position: fixed !important; border-radius: 50% !important; z-index: 1001 !important; display: flex !important; align-items: center; justify-content: center; }
-      .sidebar-toggle span { width: 20px !important; height: 3px !important; background: white !important; margin: 4px 0 !important; display: block; }
-    }
-
-    /* 뒤로가기 버튼 */
-    .back-to-list { position: fixed; bottom: 30px; right: 30px; width: 50px; height: 50px; background: #333; color: white !important; border-radius: 50%; display: flex; align-items: center; justify-content: center; text-decoration: none !important; font-size: 24px; z-index: 1000; }
+    .back-to-list{position:fixed;bottom:30px;right:30px;width:50px;height:50px;background:#333;color:#fff!important;border-radius:50%;display:flex;align-items:center;justify-content:center;text-decoration:none!important;font-size:24px;z-index:1000}
   </style>
 </head>
 <body>
   <div id="app">로딩 중...</div>
   <script>
     window.$docsify = {
-      name: 'EOD<br>지식창고',
-      loadSidebar: true,
-      subMaxLevel: 0,
+      name: 'EOD<br>지식창고', loadSidebar: true, subMaxLevel: 0,
       alias: { '/.*/_sidebar.md': '/_sidebar.md' },
-      sidebarCollapse: {
-        collapse: true
-      }
+      sidebarCollapse: { collapse: true },
+      plugins: [
+        function(hook, vm) {
+          hook.doneEach(function() {
+            // ★ 타이머를 없애서 깜빡임 없이 즉시 실행되도록 수정 ★
+            var folder = vm.route.path.split('/')[1];
+            if (!folder) return;
+            var link = document.querySelector('.sidebar-nav a[href*="/' + folder + '/"]');
+            if (link) {
+              var parentLi = link.closest('li').parentElement.closest('li');
+              if (parentLi) {
+                parentLi.classList.add('open');
+                parentLi.classList.remove('collapse');
+              }
+            }
+          });
+        }
+      ]
     }
   </script>
   <script src="//cdn.jsdelivr.net/npm/docsify/lib/docsify.min.js"></script>
