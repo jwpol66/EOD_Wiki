@@ -15,6 +15,7 @@
   * [**📂 전자&전기 개요**](electricity/README.md)
   * [기초 전기이론](electricity/electricity.md)
   * [회로 분석](electricity/circuits.md)
+  * [뇌관&회로 진단](electricity/diagnostics.md)
 
 * **EOD 장비 🤖**
   * [**📂 장비 개요**](equipment/README.md)
