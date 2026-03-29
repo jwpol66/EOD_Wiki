@@ -41,7 +41,15 @@
   <div id="app">로딩 중...</div>
   <script>
     window.$docsify = {
-      name: 'EOD<br>지식창고', loadSidebar: true, subMaxLevel: 0,
+      name: `
+        <div style="text-align: center; line-height: 1.2;">
+          <span style="color: #0056b3; font-weight: 900; font-size: 1.1em;">EOD 지식창고</span><br>
+          <span style="font-size: 0.55em; color: #6c757d; font-weight: normal; letter-spacing: 0.5px;">© 2026 J. W. Lee</span>
+        </div>
+      `,
+      loadSidebar: true, // 필수: 사이드바 파일 불러오기
+      subMaxLevel: 2,    // 필수: 사이드바 하위 목차 레벨 설정
+      auto2top: true,    // 필수: 페이지 이동 시 스크롤 맨 위로
       alias: { '/.*/_sidebar.md': '/_sidebar.md' },
       sidebarCollapse: { collapse: true },
       plugins: [
@@ -61,6 +69,126 @@
         }
       ]
     }
+    // 폭약량 및 이격 거리 계산기 함수
+// 입력 모드 저장 변수 (기본값: manual)
+  let currentInputMode = 'manual';
+
+  // 1. 입력 모드 전환 함수
+  function setInputMode(mode) {
+    currentInputMode = mode;
+    const manualArea = document.getElementById('manualInputArea');
+    const referenceArea = document.getElementById('referenceInputArea');
+    const modeManualBtn = document.getElementById('modeManualBtn');
+    const modeRefBtn = document.getElementById('modeRefBtn');
+
+    if (mode === 'manual') {
+      // 수동 입력 모드 활성화
+      manualArea.style.display = 'block';
+      referenceArea.style.display = 'none';
+      modeManualBtn.style.background = '#28a745'; modeManualBtn.style.color = 'white';
+      modeRefBtn.style.background = '#e9ecef'; modeRefBtn.style.color = 'black'; modeRefBtn.style.border = '1px solid #ced4da';
+    } else {
+      // 용기별 짐작하기 모드 활성화
+      manualArea.style.display = 'none';
+      referenceArea.style.display = 'block';
+      modeManualBtn.style.background = '#e9ecef'; modeManualBtn.style.color = 'black'; modeManualBtn.style.border = '1px solid #ced4da';
+      modeRefBtn.style.background = '#28a745'; modeRefBtn.style.color = 'white'; modeRefBtn.style.border = 'none';
+    }
+  }
+
+  // 2. K-계수 수동 입력창 토글 함수
+  function toggleCustomBox() {
+    const kSelect = document.getElementById('kSelect').value;
+    const customBox = document.getElementById('customK');
+    if (kSelect === 'custom') {
+      customBox.style.display = 'block';
+    } else {
+      customBox.style.display = 'none';
+    }
+  }
+
+  // 3. 폭약량 및 이격 거리 계산 함수
+  function calculateEOD() {
+    // 공통 입력값
+    const re = parseFloat(document.getElementById('expType').value);
+    const kSelectElement = document.getElementById('kSelect');
+    const kSelectValue = kSelectElement.value;
+    
+    // 모드에 따른 폭약 무게(g) 결정
+    let weight_g = 0;
+    if (currentInputMode === 'manual') {
+      weight_g = parseFloat(document.getElementById('weight_g').value);
+    } else {
+      // 용기별 선택 시, 선택 항목의 그램 값이 그대로 TNT 등가 무게로 사용됨
+      weight_g = parseFloat(document.getElementById('containerSelect').value);
+      // Standoff 차트는 TNT 등가 기준이므로, 이 모드에서는 RE 계수를 1.00으로 강제하는 것이 정확하지만
+      // 요원님의 요청 스타일대로 선택창의 폭약 종류는 유지하되, Standoff 차트 값을 'TNT Equivalent'로 간주하여 처리함.
+      // 더 정확한 전술 계산을 위해, Standoff 차트 값은 TNT 그 자체로 RE=1.00을 적용하는 계산식을 따름.
+    }
+    
+    // 유효성 검사
+    if(isNaN(weight_g) || weight_g <= 0) {
+      alert("유효한 폭약 무게를 그램(g) 단위로 입력하거나 용기를 선택하세요.");
+      return;
+    }
+
+    // [전술 계산 로직 핵심]
+    // 1. TNT 환산 무게 계산 (입력한 폭약 종류의 RE 계수 적용)
+    // 용기 선택 모드일 때도, Standoff 차트 값을 TNT로 간주하고 입력한 폭약 종류의 RE를 적용하여 위력을 계산함.
+    const tntEq_g = weight_g * re;
+    const tntEq_gStr = tntEq_g.toFixed(0); // 결과는 그램(g) 단위, 정수 표시
+    
+    // 2. K-계수 공식을 위한 kg 단위 환산
+    // Hopkinson-Cranz 공식 (D = K * W^(1/3))에서 W는 일반적으로 kg 단위를 사용함.
+    const tntEq_kg = tntEq_g / 1000;
+    
+    // 기본 안전 거리 (18, 40) 계산
+    document.getElementById('tntResult').innerText = Number(tntEq_gStr).toLocaleString('ko-KR'); // 쉼표 표시
+    document.getElementById('distOpen').innerText = (18 * Math.pow(tntEq_kg, 1/3)).toFixed(2);
+    document.getElementById('distPerson').innerText = (40 * Math.pow(tntEq_kg, 1/3)).toFixed(2);
+    
+    // 선택형/수동 K값 처리 영역
+    const customContainer = document.getElementById('customResultContainer');
+    let activeK = null; // 계산식 표시에 쓸 K값
+    
+    if (kSelectValue !== 'none') {
+       let kVal = 0;
+       let kLabelText = "";
+
+       if (kSelectValue === 'custom') {
+         kVal = parseFloat(document.getElementById('customK').value);
+         kLabelText = `수동 입력 기준 (K=${kVal})`;
+         if(isNaN(kVal) || kVal <= 0) {
+           alert("유효한 K값을 수동으로 입력해 주세요.");
+           return;
+         }
+       } 
+       else {
+         kVal = parseFloat(kSelectValue);
+         kLabelText = kSelectElement.options[kSelectElement.selectedIndex].text;
+       }
+
+       // 선택한 K값에 대한 계산
+       const distCustom = (kVal * Math.pow(tntEq_kg, 1/3)).toFixed(2);
+       document.getElementById('customKLabel').innerText = kLabelText;
+       document.getElementById('distCustom').innerText = distCustom;
+       customContainer.style.display = 'block';
+       activeK = kVal;
+    } else {
+       customContainer.style.display = 'none';
+       activeK = 18; 
+    }
+
+    // 제일 아래 계산식 표시 업데이트 (유니코드 사용)
+    const formulaDetail = `D = ${activeK} × ∛(${Number(tntEq_gStr).toLocaleString('ko-KR')} / 1,000)`;
+    document.getElementById('formulaDetail').innerText = formulaDetail;
+
+    // 최종 결과창 띄우기
+    document.getElementById('resultArea').style.display = 'block';
+  }
+
+  // 페이지 로드 시 수동 입력 모드 버튼 스타일 초기화
+  setInputMode('manual');
   </script>
   <script src="//cdn.jsdelivr.net/npm/docsify/lib/docsify.min.js"></script>
   <script src="//cdn.jsdelivr.net/npm/docsify-sidebar-collapse/dist/docsify-sidebar-collapse.min.js"></script>

@@ -31,3 +31,6 @@
   * [**📂 사건 사례 개요**](cases/README.md)
   * [국내 사례](cases/case_kr.md)
   * [해외 사례](cases/case_intl.md)
+
+  ---
+* [<span style="color: #d9534f; font-weight: bold;">🧮 안전거리 계산기</span>](explosives/calculator)
