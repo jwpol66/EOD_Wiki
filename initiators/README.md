@@ -13,8 +13,8 @@
     <p>도폭선, 안전도화선, 충격관(Shock Tube) 등을 이용하여 화염이나 충격파로 기폭하는 방식입니다. 전기적 위험으로부터는 자유롭지만, 화기 및 물리적 충격에 대한 엄격한 통제가 필요합니다.</p>
   </a>
 
-  <a href="#/initiators/detonating_cord" class="case-card" style="text-decoration: none;">
-    <h4>🪢 도폭선 (Detonating Cord)</h4>
+  <a href="#/initiators/detcord" class="case-card" style="text-decoration: none;">
+    <h4>🪢 도폭선 (DetCord)</h4>
     <p>초속 8km로 폭발하는 PETN 심약이 꽉 차 있는 선형 화공품입니다. 다수의 폭약을 오차 없이 동시 폭발시키거나 구조물을 절단하는 EOD 작전의 필수품입니다.</p>
   </a>
 </div>

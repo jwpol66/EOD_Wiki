@@ -19,7 +19,7 @@
   <a href="#/explosives/black_powder" class="eod-btn">🔥 흑색화약</a>
   <a href="#/explosives/smokeless_powder" class="eod-btn">💨 무연화약</a>
   <a href="#/explosives/composite" class="eod-btn">🚀 콤포지트 추진제</a>
-  <a href="#/explosives/crushing_agent" class="eod-btn">⛏️ 파쇄약</a>
+  <a href="#/explosives/fracturing_explosives" class="eod-btn">⛏️ 파쇄약</a>
   <a href="#/explosives/plasma" class="eod-btn">⚡ 플라즈마 발파약</a>
 </div>
 
