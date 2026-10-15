@@ -10,7 +10,7 @@
   * [**📂 화공품 개요**](initiators/README.md)
   * [전기식 뇌관](initiators/detonator.md)
   * [비전기식 뇌관](initiators/non_electric.md)
-  * [도폭선](initiators/detonating_cord.md)
+  * [도폭선](initiators/detcord.md)
 
 * **전자&전기 ⚡**
   * [**📂 전자&전기 개요**](electricity/README.md)
