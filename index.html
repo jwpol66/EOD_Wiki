@@ -29,10 +29,12 @@
     }
     @media screen and (max-width:768px){
       .sidebar{width:min(82vw, 300px)!important;left:0!important}
+      body.close .sidebar{transform:translateX(-100%)!important}
       body:not(.close) .sidebar{transform:none!important}
       body:not(.close) .content{left:0!important;width:100%!important;transform:none!important}
       body:not(.close) .content:before{content:"";position:fixed;inset:0;background:rgba(0,0,0,.32);z-index:999}
       body:not(.close) .sidebar{z-index:1000!important}
+      body.close .content:before{display:none!important}
       body.close .content{left:0!important;width:100%!important;transform:none!important}
       .markdown-section{padding:24px 18px 80px!important;font-size:16px!important}
       .sidebar-toggle{width:44px!important;height:44px!important;background:#218838!important;left:16px!important;bottom:18px!important;position:fixed!important;border-radius:50%!important;z-index:1001!important;display:flex!important;align-items:center;justify-content:center;box-shadow:0 2px 8px #0003}
@@ -42,6 +44,11 @@
   </style>
 </head>
 <body>
+  <script>
+    if (window.matchMedia('(max-width: 768px)').matches) {
+      document.body.classList.add('close');
+    }
+  </script>
   <div id="app">로딩 중...</div>
   <script>
     window.$docsify = {
@@ -198,3 +205,4 @@
   <script src="//cdn.jsdelivr.net/npm/docsify-sidebar-collapse/dist/docsify-sidebar-collapse.min.js"></script>
 </body>
 </html>
+
