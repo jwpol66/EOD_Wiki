@@ -9,6 +9,7 @@
 * **화공품 💥**
   * [**📂 화공품 개요**](initiators/README.md)
   * [전기식 뇌관](initiators/detonator.md)
+  * [비전기식 뇌관](initiators/non_electric.md)
   * [도폭선](initiators/detcord.md)
 
 * **전자&전기 ⚡**
@@ -19,9 +20,13 @@
 
 * **EOD 장비 🤖**
   * [**📂 장비 개요**](equipment/README.md)
+  * [X-ray 장비](equipment/xray.md)
+  * [폭발물 처리 로봇](equipment/robot.md)
 
 * **관련 규정 📘**
   * [**📂 규정 개요**](regulations/README.md)
+  * [대피 거리](regulations/clearance.md)
+  * [안전 관리 수칙](regulations/safety_rules.md)
 
 * **폭발물 사건 🚨**
   * [**📂 사건 사례 개요**](cases/README.md)
@@ -30,3 +35,4 @@
 
   ---
 * [<span style="color: #d9534f; font-weight: bold;">🧮 안전거리 계산기</span>](explosives/calculator)
+
