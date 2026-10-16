@@ -2,38 +2,42 @@
 <html>
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-  <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/docsify/themes/vue.css">
-  <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/docsify-sidebar-collapse/dist/sidebar.min.css" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/docsify/themes/vue.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/docsify-sidebar-collapse/dist/sidebar.min.css" />
   <style>
-    :root{--w-pc:250px;--w-mo:110px}
-    /* 사이드바 및 본문 디자인 압축 */
+    :root{--w-pc:250px}
     .sidebar .app-name a{font-size:19px!important;line-height:1.2!important;display:block!important;color:#0056b3!important;font-weight:800!important}
     .sidebar-nav,.sidebar-nav ul,.sidebar-nav li{margin:0!important;padding:0!important;list-style:none!important}
     .sidebar-nav strong{font-size:17px!important;color:#28a745!important;padding-left:5px!important;margin-top:15px!important;display:block;cursor:pointer}
     .sidebar-nav .folder::after{display:none!important;content:none!important}
     .sidebar-nav a{font-size:16px!important;padding:4px 5px!important;color:#444!important;display:block!important;text-decoration:none!important;transition:all .2s}
     .sidebar-nav li.active>a,.sidebar-nav a:hover{color:#0056b3!important;font-weight:bold!important;text-decoration:underline!important}
-    .markdown-section{font-size:18px!important;line-height:3.0!important;color:#222!important;padding:30px 20px!important}
+    .markdown-section{font-size:17px!important;line-height:1.8!important;color:#222!important;padding:30px 24px!important}
+    .markdown-section table{display:block;max-width:100%;overflow-x:auto}
+    .markdown-section img{max-width:100%;height:auto}
+    .markdown-section :focus-visible,.sidebar a:focus-visible,.sidebar-toggle:focus-visible{outline:3px solid #0056b3;outline-offset:2px}
     .markdown-section h1,.markdown-section h2,.markdown-section h3{margin-top:30px!important;margin-bottom:5px!important}
-    /* 레이아웃 제어 압축 */
     body,html{overflow-x:hidden!important}
     .sidebar{position:fixed!important;top:0;left:0;height:100vh!important;background:#fff!important;z-index:1000!important;border-right:1px solid #eee}
     .content{position:absolute!important;top:0;left:0;transition:all .3s ease!important}
     @media screen and (min-width:769px){
       .sidebar{width:var(--w-pc)!important;transform:none!important}
       body:not(.close) .content{left:var(--w-pc)!important;width:calc(100% - var(--w-pc))!important}
+      body.close .sidebar{transform:translateX(-100%)!important}
+      body.close .content{left:0!important;width:100%!important}
     }
     @media screen and (max-width:768px){
-      .sidebar{width:var(--w-mo)!important;left:0!important}
+      .sidebar{width:min(82vw, 300px)!important;left:0!important}
       body:not(.close) .sidebar{transform:none!important}
-      body:not(.close) .content{left:var(--w-mo)!important;width:calc(100% - var(--w-mo))!important;transform:none!important}
-      body.close .sidebar{transform:translateX(-110px)!important}
+      body:not(.close) .content{left:0!important;width:100%!important;transform:none!important}
+      body:not(.close) .content:before{content:"";position:fixed;inset:0;background:rgba(0,0,0,.32);z-index:999}
+      body:not(.close) .sidebar{z-index:1000!important}
       body.close .content{left:0!important;width:100%!important;transform:none!important}
-      .sidebar-toggle{width:40px!important;height:40px!important;background:#28a745!important;left:15px!important;bottom:25px!important;position:fixed!important;border-radius:50%!important;z-index:1001!important;display:flex!important;align-items:center;justify-content:center}
+      .markdown-section{padding:24px 18px 80px!important;font-size:16px!important}
+      .sidebar-toggle{width:44px!important;height:44px!important;background:#218838!important;left:16px!important;bottom:18px!important;position:fixed!important;border-radius:50%!important;z-index:1001!important;display:flex!important;align-items:center;justify-content:center;box-shadow:0 2px 8px #0003}
       .sidebar-toggle span{width:20px!important;height:3px!important;background:#fff!important;margin:4px 0!important;display:block}
     }
-    /* ★ 플로팅 뒤로가기/홈 버튼 완벽 숨김 처리 (기존 코드 대체) ★ */
     .back-to-list{display:none!important}
   </style>
 </head>

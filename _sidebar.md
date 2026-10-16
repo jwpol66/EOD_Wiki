@@ -35,3 +35,4 @@
 
   ---
 * [<span style="color: #d9534f; font-weight: bold;">🧮 안전거리 계산기</span>](explosives/calculator)
+
