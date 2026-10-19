@@ -65,5 +65,19 @@
   </a>
 </div>
 
-[← 사건 사례로](cases/README.md)
+### 상세 페이지로 바로 이동
 
+- [전주 아파트 사제폭발물 사건 (2020)](cases/kr_2020_jeonju.md)
+- [연세대학교 연구실 폭발 사건 (2017)](cases/kr_2017_yonsei.md)
+- [서울 성북구 처형 집 앞 사제폭발물 사건 (2012)](cases/kr_2012_suwon.md)
+- [서울역·강남고속버스터미널 보관함 폭발 (2011)](cases/kr_2011_gangnam.md)
+- [포항 사제폭발물 자살 사건 (2011)](cases/kr_2011_pohang.md)
+- [전주 상가·아파트 사제폭발물 연속 사건 (2004)](cases/kr_2004_jeonju.md)
+- [광주 회사 화장실 폭발물 살인 사건 (2002)](cases/kr_2002_company.md)
+- [대구 시민운동장 앞 가방 폭발 사건 (2001)](cases/kr_2001_daegu.md)
+- [서울 원효로 파출소 폭발 사건 (1998)](cases/kr_1998_yongsan.md)
+- [순천 일가족 차량 폭발 살인 사건 (1995)](cases/kr_1995_suncheon.md)
+- [서울 성산동 택시 사제폭탄 사건 (1991)](cases/kr_1991_taxi.md)
+- [김포국제공항 폭발 사건 (1986)](cases/kr_1986_gimpo.md)
+
+[← 사건 사례로](cases/README.md)
