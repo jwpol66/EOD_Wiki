@@ -3,6 +3,11 @@
 대한민국 영토에서 발생한 공개 사례를 연도순으로 정리합니다. 사건 주체·폭약·기폭 방식은 공공 기록으로 확인되는 범위만 기재합니다.
 
 <div class="card-container">
+  <a href="#/cases/kr_2020_jeonju" class="case-card">
+    <h4>전주 아파트 사제폭발물 사건</h4>
+    <p>2020년 · 스토킹 대상자 주거지에서 폭발 · 범인 중상, 주변 유리 파손</p>
+    <div class="date">2020.10.17</div>
+  </a>
   <a href="#/cases/kr_2017_yonsei" class="case-card">
     <h4>연세대학교 연구실 폭발 사건</h4>
     <p>2017년 · 교수 1명 부상 · 포장물을 개봉하는 과정에서 폭발</p>
@@ -21,4 +26,3 @@
 </div>
 
 [← 사건 사례로](cases/README.md)
-
