@@ -109,11 +109,22 @@
         return;
       }
       if (categoryItem && categoryItem.matches('li.folder')) {
-        var textRange = document.createRange();
-        textRange.selectNodeContents(link);
-        var clickedText = Array.prototype.some.call(textRange.getClientRects(), function(rect) {
-          return event.clientX >= rect.left && event.clientX <= rect.right && event.clientY >= rect.top && event.clientY <= rect.bottom;
-        });
+        var textWalker = document.createTreeWalker(link, NodeFilter.SHOW_TEXT);
+        var textNode;
+        var clickedText = false;
+        while ((textNode = textWalker.nextNode())) {
+          var textRange = document.createRange();
+          textRange.selectNodeContents(textNode);
+          var textRects = textRange.getClientRects();
+          for (var rectIndex = 0; rectIndex < textRects.length; rectIndex++) {
+            var rect = textRects[rectIndex];
+            if (event.clientX >= rect.left && event.clientX <= rect.right && event.clientY >= rect.top && event.clientY <= rect.bottom) {
+              clickedText = true;
+              break;
+            }
+          }
+          if (clickedText) break;
+        }
         if (!clickedText) {
           var categoryChildren = categoryItem.querySelector(':scope > ul');
           var categoryExpanded = categoryChildren && categoryChildren.getClientRects().length > 0 && window.getComputedStyle(categoryChildren).display !== 'none';
