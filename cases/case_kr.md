@@ -13,15 +13,15 @@
     <p>2017년 · 교수 1명 부상 · 포장물을 개봉하는 과정에서 폭발</p>
     <div class="date">2017.06.13</div>
   </a>
-  <a href="#/cases/kr_2011_gangnam" class="case-card">
-    <h4>서울역·강남고속버스터미널 보관함 폭발</h4>
-    <p>2011년 · 두 교통시설에서 잇따라 발생 · 세부 기폭 방식은 미확인</p>
-    <div class="date">2011.05.12</div>
-  </a>
   <a href="#/cases/kr_2012_suwon" class="case-card">
     <h4>서울 성북구 처형 집 앞 사제폭발물 사건</h4>
     <p>2012년 · 이혼 갈등 중 주거지 복도에서 폭발 · 주민 대피</p>
     <div class="date">2012.01.09</div>
+  </a>
+  <a href="#/cases/kr_2011_gangnam" class="case-card">
+    <h4>서울역·강남고속버스터미널 보관함 폭발</h4>
+    <p>2011년 · 두 교통시설에서 잇따라 발생 · 세부 기폭 방식은 미확인</p>
+    <div class="date">2011.05.12</div>
   </a>
   <a href="#/cases/kr_2011_pohang" class="case-card">
     <h4>포항 사제폭발물 자살 사건</h4>
