@@ -91,13 +91,29 @@
     }
 
     document.addEventListener('click', function(event) {
-      if (!window.matchMedia('(max-width: 768px)').matches || document.body.classList.contains('close')) return;
+      var isMobile = window.matchMedia('(max-width: 768px)').matches;
+      if (isMobile && document.body.classList.contains('close')) return;
       var target = event.target instanceof Element ? event.target : event.target.parentElement;
       if (!target || target.closest('.sidebar-toggle')) return;
       var link = target.closest('.sidebar-nav a');
+      var categoryItem = link && link.parentElement && link.parentElement.matches('p') && link.parentElement.parentElement;
+      if (categoryItem && categoryItem.matches('li.folder')) {
+        var destination = link.hash.split('?')[0].replace(/\/$/, '');
+        var currentRoute = window.location.hash.split('?')[0].replace(/\/$/, '');
+        var childList = categoryItem.querySelector(':scope > ul');
+        var isExpanded = childList && childList.getClientRects().length > 0 && window.getComputedStyle(childList).display !== 'none';
+        if (destination === currentRoute) {
+          event.preventDefault();
+          event.stopImmediatePropagation();
+          categoryItem.classList.toggle('open', !isExpanded);
+          categoryItem.classList.toggle('collapse', isExpanded);
+        } else {
+          window.__expandSidebarCategory = destination;
+        }
+      }
       if (link) {
-        window.__keepMobileSidebarOpen = true;
-      } else if (!target.closest('.sidebar')) {
+        if (isMobile) window.__keepMobileSidebarOpen = true;
+      } else if (isMobile && !target.closest('.sidebar')) {
         document.body.classList.add('close');
       }
     });
@@ -132,6 +148,19 @@
                 parentLi.classList.add('open');
                 parentLi.classList.remove('collapse');
               }
+            }
+            if (window.__expandSidebarCategory) {
+              var categoryLinks = document.querySelectorAll('.sidebar-nav li.folder > p > a');
+              for (var i = 0; i < categoryLinks.length; i++) {
+                var categoryHash = categoryLinks[i].hash.split('?')[0].replace(/\/$/, '');
+                if (categoryHash === window.__expandSidebarCategory) {
+                  var categoryItem = categoryLinks[i].parentElement.parentElement;
+                  categoryItem.classList.add('open');
+                  categoryItem.classList.remove('collapse');
+                  break;
+                }
+              }
+              window.__expandSidebarCategory = null;
             }
             var routePath = vm.route.path;
             var isExplosiveDetail = routePath.indexOf('/explosives/') === 0 && routePath !== '/explosives/README' && routePath !== '/explosives/calculator';
