@@ -69,7 +69,7 @@
       .sidebar-toggle{top:12px!important;bottom:auto!important;left:12px!important;width:40px!important;height:40px!important}
       .content{left:0!important;right:0!important;width:100vw!important;max-width:100vw!important;margin:0!important;transform:none!important}
       body.close .content{left:0!important;right:0!important;width:100vw!important;max-width:100vw!important;margin:0!important;transform:none!important}
-      .sidebar{width:min(84vw,320px)!important}
+      .sidebar{width:min(78vw,300px)!important}
       body:not(.close) .sidebar{transform:translateX(0)!important}
       body:not(.close) .content{left:0!important;right:0!important;width:100vw!important;max-width:100vw!important;margin:0!important;transform:none!important}
       body:not(.close) .content:before{content:"";position:fixed;inset:0;background:#14253466;z-index:999}
@@ -92,7 +92,12 @@
       if (!window.matchMedia('(max-width: 768px)').matches || document.body.classList.contains('close')) return;
       var target = event.target instanceof Element ? event.target : event.target.parentElement;
       if (!target || target.closest('.sidebar-toggle')) return;
-      if (target.closest('.sidebar-nav a') || !target.closest('.sidebar')) {
+      var link = target.closest('.sidebar-nav a');
+      var folder = link && link.parentElement && link.parentElement.parentElement;
+      var isCategoryLink = folder && folder.matches('li.folder') && link.parentElement.matches('p');
+      if (isCategoryLink) {
+        window.__keepMobileSidebarOpen = true;
+      } else if (link || !target.closest('.sidebar')) {
         document.body.classList.add('close');
       }
     });
@@ -114,6 +119,10 @@
       plugins: [
         function(hook, vm) {
           hook.doneEach(function() {
+            if (window.__keepMobileSidebarOpen && window.matchMedia('(max-width: 768px)').matches) {
+              document.body.classList.remove('close');
+              window.__keepMobileSidebarOpen = false;
+            }
             var folder = vm.route.path.split('/')[1];
             if (!folder) return;
             var link = document.querySelector('.sidebar-nav a[href*="/' + folder + '/"]');
