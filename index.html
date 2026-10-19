@@ -34,6 +34,8 @@
     .sidebar-nav li.folder>ul{margin:2px 0 10px 12px!important;padding:3px 0 3px 12px!important;border-left:2px solid #dce7eb!important}
     .sidebar-nav li.folder>ul a{margin:2px 0!important;padding:8px 10px!important;color:#526371!important;font-size:15px!important;line-height:1.45!important}
     .sidebar-nav li.folder>ul li.active>a{border-left:3px solid var(--teal)!important;background:#e8f3f2!important;color:#126b67!important;font-weight:700!important}
+    .eod-category-back{display:inline-flex!important;align-items:center;gap:6px;margin:0 0 22px!important;padding:8px 12px!important;border:1px solid var(--line)!important;border-radius:8px!important;background:#fff!important;color:var(--navy)!important;font-size:14px!important;font-weight:650!important;text-decoration:none!important}
+    .eod-category-back:hover{border-color:#b9d8d5!important;background:#edf6f5!important;color:#126b67!important}
     .sidebar-nav li p{margin:0!important}
     .content{position:absolute!important;top:0;left:var(--sidebar-width)!important;width:calc(100% - var(--sidebar-width))!important;min-height:100vh;margin-left:0!important;padding:0!important;transition:all .22s ease!important}
     body.close .sidebar{transform:translateX(-100%)!important}
@@ -93,11 +95,9 @@
       var target = event.target instanceof Element ? event.target : event.target.parentElement;
       if (!target || target.closest('.sidebar-toggle')) return;
       var link = target.closest('.sidebar-nav a');
-      var folder = link && link.parentElement && link.parentElement.parentElement;
-      var isCategoryLink = folder && folder.matches('li.folder') && link.parentElement.matches('p');
-      if (isCategoryLink) {
+      if (link) {
         window.__keepMobileSidebarOpen = true;
-      } else if (link || !target.closest('.sidebar')) {
+      } else if (!target.closest('.sidebar')) {
         document.body.classList.add('close');
       }
     });
@@ -131,6 +131,21 @@
               if (parentLi) {
                 parentLi.classList.add('open');
                 parentLi.classList.remove('collapse');
+              }
+            }
+            var routePath = vm.route.path;
+            var isExplosiveDetail = routePath.indexOf('/explosives/') === 0 && routePath !== '/explosives/README' && routePath !== '/explosives/calculator';
+            var section = document.querySelector('.markdown-section');
+            if (section) {
+              var backLink = section.querySelector('.eod-category-back');
+              if (isExplosiveDetail && !backLink) {
+                backLink = document.createElement('a');
+                backLink.className = 'eod-category-back';
+                backLink.href = '#/explosives/README';
+                backLink.textContent = '← 폭약 개요로 돌아가기';
+                section.insertBefore(backLink, section.firstChild);
+              } else if (!isExplosiveDetail && backLink) {
+                backLink.remove();
               }
             }
           });
