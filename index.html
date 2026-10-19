@@ -97,7 +97,32 @@
       if (!target || target.closest('.sidebar-toggle')) return;
       var link = target.closest('.sidebar-nav a');
       var categoryItem = link && link.parentElement && link.parentElement.matches('p') && link.parentElement.parentElement;
+      var categoryRow = target.closest('.sidebar-nav li.folder > p');
+      if (categoryRow && (!link || link.parentElement !== categoryRow)) {
+        var rowCategory = categoryRow.parentElement;
+        var rowChildren = rowCategory.querySelector(':scope > ul');
+        var rowExpanded = rowChildren && rowChildren.getClientRects().length > 0 && window.getComputedStyle(rowChildren).display !== 'none';
+        event.preventDefault();
+        event.stopImmediatePropagation();
+        rowCategory.classList.toggle('open', !rowExpanded);
+        rowCategory.classList.toggle('collapse', rowExpanded);
+        return;
+      }
       if (categoryItem && categoryItem.matches('li.folder')) {
+        var textRange = document.createRange();
+        textRange.selectNodeContents(link);
+        var clickedText = Array.prototype.some.call(textRange.getClientRects(), function(rect) {
+          return event.clientX >= rect.left && event.clientX <= rect.right && event.clientY >= rect.top && event.clientY <= rect.bottom;
+        });
+        if (!clickedText) {
+          var categoryChildren = categoryItem.querySelector(':scope > ul');
+          var categoryExpanded = categoryChildren && categoryChildren.getClientRects().length > 0 && window.getComputedStyle(categoryChildren).display !== 'none';
+          event.preventDefault();
+          event.stopImmediatePropagation();
+          categoryItem.classList.toggle('open', !categoryExpanded);
+          categoryItem.classList.toggle('collapse', categoryExpanded);
+          return;
+        }
         var destination = link.hash.split('?')[0].replace(/\/$/, '');
         var currentRoute = window.location.hash.split('?')[0].replace(/\/$/, '');
         var childList = categoryItem.querySelector(':scope > ul');
@@ -306,4 +331,3 @@
   <script src="//cdn.jsdelivr.net/npm/docsify-sidebar-collapse/dist/docsify-sidebar-collapse.min.js"></script>
 </body>
 </html>
-
