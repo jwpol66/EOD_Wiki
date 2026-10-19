@@ -18,6 +18,16 @@
     <p>2011년 · 두 교통시설에서 잇따라 발생 · 세부 기폭 방식은 미확인</p>
     <div class="date">2011.05.12</div>
   </a>
+  <a href="#/cases/kr_1995_suncheon" class="case-card">
+    <h4>순천 일가족 차량 폭발 살인 사건</h4>
+    <p>1995년 · 차량 폭발로 여성 1명 사망 · 두 자녀 생존</p>
+    <div class="date">1995.02.06</div>
+  </a>
+  <a href="#/cases/kr_1991_taxi" class="case-card">
+    <h4>서울 성산동 택시 사제폭탄 사건</h4>
+    <p>1991년 · 택시 주행 중 폭발 · 국과수 감식으로 사제 시한폭탄 확인</p>
+    <div class="date">1991.06.24</div>
+  </a>
   <a href="#/cases/kr_1986_gimpo" class="case-card">
     <h4>김포국제공항 폭발 사건</h4>
     <p>1986년 · 공항 터미널 폭발 · 사망 5명 · 서울기록원 보존기록 기반</p>
